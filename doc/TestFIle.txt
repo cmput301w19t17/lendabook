@@ -3,3 +3,5 @@ members:
 - Johanthan Babic
 - Oleg Krushelnytsky
 -Chris Baker
+ -Peter Kostin
+ 
