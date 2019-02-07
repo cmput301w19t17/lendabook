@@ -2,3 +2,4 @@ This is a text file inside lendabook.
 members:
 - Johanthan Babic
 - Oleg Krushelnytsky
+-Chris Baker
