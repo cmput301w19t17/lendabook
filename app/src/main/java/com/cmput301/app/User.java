@@ -16,5 +16,13 @@ public class User {
         this.contactInfo = contactInfo;
     }
 
-    
+    public void editContactInfo() {}
+
+    public void deleteBook(Book book){}
+
+    public void editBook(Book book){}
+
+    public void addBook(Book book){}
+
+    public String getDescription(Book book){}
 }
