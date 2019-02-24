@@ -24,5 +24,5 @@ public class User {
 
     public void addBook(Book book){}
 
-    public String getDescription(Book book){}
+    public String getDescription(Book book){ return "";}
 }
