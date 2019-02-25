@@ -10,11 +10,11 @@ public class ContactInfoTest {
         PhoneNo aPhoneNo = new PhoneNo(111,145,1341);
 
         ContactInfo contactStuff = new ContactInfo("personA",99,aPhoneNo, newAddress,"abc@ualberta.ca");
-        assertEquals(contactStuff.getName(),"personA");
-        assertEquals(contactStuff.getCurrAddress(), newAddress);
-        assertEquals(contactStuff.getPhoneNo(), aPhoneNo);
-        assertEquals(contactStuff.getEmail(),"abc@ualberta.ca");
-        assertEquals((long)contactStuff.getAge(), 99);
+        assertEquals("personA",contactStuff.getName());
+        assertEquals(newAddress,contactStuff.getCurrAddress());
+        assertEquals(aPhoneNo, contactStuff.getPhoneNo());
+        assertEquals("abc@ualberta.ca",contactStuff.getEmail());
+        assertEquals(99,(long)contactStuff.getAge());
 
     }
 
@@ -26,7 +26,7 @@ public class ContactInfoTest {
         ContactInfo contactStuff = new ContactInfo("personA",99,aPhoneNo, newAddress,"abc@ualberta.ca");
 
         contactStuff.setName("Bperson");
-        assertEquals(contactStuff.getName(),"Bperson");
+        assertEquals("Bperson",contactStuff.getName());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class ContactInfoTest {
 
         ContactInfo contactStuff = new ContactInfo("personA",99,aPhoneNo, newAddress,"abc@ualberta.ca");
         contactStuff.setAge(23);
-        assertEquals((int)contactStuff.getAge(),23);
+        assertEquals(23,(int)contactStuff.getAge());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ContactInfoTest {
         ContactInfo contactStuff = new ContactInfo("personA",99,aPhoneNo, newAddress,"abc@ualberta.ca");
         CurrAddress anotherAddress = new CurrAddress("anothercountry","anotherprovince","anothercity","anotherstreet");
         contactStuff.setCurrAddress(anotherAddress);
-        assertEquals(contactStuff.getCurrAddress(),anotherAddress);
+        assertEquals(anotherAddress, contactStuff.getCurrAddress());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class ContactInfoTest {
         PhoneNo anotherPhone = new PhoneNo(403,444,1920);
 
         contactStuff.setPhoneNo(anotherPhone);
-        assertEquals(contactStuff.getPhoneNo(),anotherPhone);
+        assertEquals(anotherPhone,contactStuff.getPhoneNo());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ContactInfoTest {
         ContactInfo contactStuff = new ContactInfo("personA",99,aPhoneNo, newAddress,"abc@ualberta.ca");
 
         contactStuff.setEmail("email@email.com");
-        assertEquals(contactStuff.getEmail(),"email@email.com");
+        assertEquals("email@email.com",contactStuff.getEmail());
     }
 
 

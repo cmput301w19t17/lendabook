@@ -10,8 +10,8 @@ public class UserTest {
                 new CurrAddress("Canada","Alberta","Edmonton","1234 1st street"),"abc@ualberta.ca");
 
         User aUser = new User("username",contactStuff);
-        assertEquals(aUser.getUsername(),"personA");
-        assertEquals(aUser.getContactInfo(), contactStuff);
+        assertEquals("personA",aUser.getUsername());
+        assertEquals(contactStuff,aUser.getContactInfo());
     }
 
     @Test

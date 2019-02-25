@@ -29,4 +29,20 @@ public class CurrAddress {
     public String getStateProvince() {
         return stateProvince;
     }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setStateProvince(String stateProvince) {
+        this.stateProvince = stateProvince;
+    }
+
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo;
+    }
 }
