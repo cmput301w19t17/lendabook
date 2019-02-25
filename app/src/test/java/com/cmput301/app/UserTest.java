@@ -22,7 +22,7 @@ public class UserTest {
         User aUser = new User("username",contactStuff);
 
         aUser.getContactInfo().setAge(19);
-        assertEquals(aUser.getContactInfo().getAge(),(Integer) 25);
+        assertEquals((long)aUser.getContactInfo().getAge(), 25);
 
         aUser.getContactInfo().setEmail("def@gmail.com");
         assertEquals(aUser.getContactInfo().getEmail(),"def@gmail.com");
