@@ -24,6 +24,12 @@ public class PhoneNo {
         return lastDigits;
     }
 
+    public void setPhoneNo(int areaCode,int firstDigits, int lastDigits) {
+        this.areaCode=areaCode;
+        this.firstDigits=firstDigits;
+        this.lastDigits=lastDigits;
+    }
+
     @Override
     public String toString() {
         return null;

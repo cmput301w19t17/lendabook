@@ -4,12 +4,14 @@ public class CurrAddress {
 
     private String country;
     private String city;
+    private String stateProvince;
     private String houseNo;
 
-    public CurrAddress(String country, String city, String houseNo) {
+    public CurrAddress(String country,String stateProvince, String city, String houseNo) {
         this.country = country;
         this.city = city;
         this.houseNo = houseNo;
+        this.stateProvince = stateProvince;
     }
 
     public String getCountry() {
@@ -22,5 +24,9 @@ public class CurrAddress {
 
     public String getHouseNo() {
         return houseNo;
+    }
+
+    public String getStateProvince() {
+        return stateProvince;
     }
 }

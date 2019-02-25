@@ -25,4 +25,28 @@ public class User {
     public void addBook(Book book){}
 
     public String getDescription(Book book){ return "";}
+
+    public String getUsername() {
+        return username;
+    }
+
+    public ContactInfo getContactInfo() {
+        return contactInfo;
+    }
+
+    public ArrayList<Book> getBooksOwned() {
+        return booksOwned;
+    }
+
+    public ArrayList<Book> getBooksBorrowed() {
+        return booksBorrowed;
+    }
+
+    public ArrayList<Book> getBooksRequested() {
+        return booksRequested;
+    }
+
+    public ArrayList<Book> getAcceptedRequests() {
+        return acceptedRequests;
+    }
 }
