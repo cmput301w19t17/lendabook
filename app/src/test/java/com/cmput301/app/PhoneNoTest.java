@@ -27,7 +27,7 @@ public class PhoneNoTest {
         assertEquals(aPhone.getLastDigits(), (Integer) 4555);
     }
 
-    
+
 
 
 }
