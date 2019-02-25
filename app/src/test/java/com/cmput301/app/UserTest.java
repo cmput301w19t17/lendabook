@@ -22,21 +22,21 @@ public class UserTest {
         User aUser = new User("username",contactStuff);
 
         aUser.getContactInfo().setAge(19);
-        assertEquals((long)aUser.getContactInfo().getAge(), 25);
+        assertEquals(25,(long)aUser.getContactInfo().getAge());
 
         aUser.getContactInfo().setEmail("def@gmail.com");
-        assertEquals(aUser.getContactInfo().getEmail(),"def@gmail.com");
+        assertEquals("def@gmail.com",aUser.getContactInfo().getEmail());
 
         aUser.getContactInfo().setName("personB");
-        assertEquals(aUser.getContactInfo().getName(), "personB");
+        assertEquals("personB",aUser.getContactInfo().getName());
 
         CurrAddress anotherAddress = new CurrAddress("Acountry","Aprovince","Acity","AHouse");
         aUser.getContactInfo().setCurrAddress(anotherAddress);
-        assertEquals(aUser.getContactInfo().getCurrAddress(), anotherAddress);
+        assertEquals( anotherAddress,aUser.getContactInfo().getCurrAddress());
 
         PhoneNo anotherPhone = new PhoneNo(403,403,4033);
         aUser.getContactInfo().setPhoneNo(anotherPhone);
-        assertEquals(aUser.getContactInfo().getPhoneNo(),anotherPhone);
+        assertEquals(anotherPhone,aUser.getContactInfo().getPhoneNo());
     }
 
     @Test
