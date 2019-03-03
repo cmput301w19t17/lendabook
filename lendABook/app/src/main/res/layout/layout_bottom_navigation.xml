@@ -10,9 +10,10 @@
             android:id="@+id/bottomNavViewBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:background="#000"
-            app:menu="@menu/bottom_navigation_menu"
-            >
+            app:menu="@menu/bottom_navigation_menu">
 
 
         </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
