@@ -11,14 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
         <activity android:name=".LogIn.LogInActivity">
-=======
-        <activity android:name=".Home.HomeActivity">
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
                 android:value="barcode"/>
->>>>>>> 47c7bc2c7c5066f9df7328bc92be2243144408d2
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
