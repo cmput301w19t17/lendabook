@@ -40,6 +40,16 @@ public class AddActivityTest extends ActivityTestRule<AddActivity>{
         Activity activity = rule.getActivity();
     }
 
+    @Test
+    public void checkBook(){
+
+        solo.assertCurrentActivity("Wrong Activity", AddActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.input_book_title), "Game of Thrones");
+        solo.enterText((EditText) solo.getView(R.id.input_author), "George R. R. Martin");
+        solo.enterText((EditText) solo.getView(R.id.input_isbn), "123 456 789 00");
+        solo.enterText((EditText) solo.getView(R.id.input_book_description), "Just like the TV show");
+
+    }
 
     @After
     public void tearDown() throws Exception{
