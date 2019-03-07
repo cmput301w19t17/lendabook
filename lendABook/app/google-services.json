@@ -1,20 +1,32 @@
 {
   "project_info": {
+<<<<<<< HEAD
     "project_number": "199893234286",
     "firebase_url": "https://lendabook-register.firebaseio.com",
     "project_id": "lendabook-register",
     "storage_bucket": "lendabook-register.appspot.com"
+=======
+    "project_number": "38673833949",
+    "firebase_url": "https://lendabook-barcode-scanner.firebaseio.com",
+    "project_id": "lendabook-barcode-scanner",
+    "storage_bucket": "lendabook-barcode-scanner.appspot.com"
+>>>>>>> 47c7bc2c7c5066f9df7328bc92be2243144408d2
   },
   "client": [
     {
       "client_info": {
+<<<<<<< HEAD
         "mobilesdk_app_id": "1:199893234286:android:1784c9d617832572",
+=======
+        "mobilesdk_app_id": "1:38673833949:android:1784c9d617832572",
+>>>>>>> 47c7bc2c7c5066f9df7328bc92be2243144408d2
         "android_client_info": {
           "package_name": "com.example.android.lendabook"
         }
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
           "client_id": "199893234286-jqebafcjqtjh9mvogvvf5vh3ub6ltqrv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -24,12 +36,19 @@
         },
         {
           "client_id": "199893234286-juilck1m5mln77srtv8oq93cr74ufd60.apps.googleusercontent.com",
+=======
+          "client_id": "38673833949-kfhs0abceh9dqjv2mem7ohn859a1pst8.apps.googleusercontent.com",
+>>>>>>> 47c7bc2c7c5066f9df7328bc92be2243144408d2
           "client_type": 3
         }
       ],
       "api_key": [
         {
+<<<<<<< HEAD
           "current_key": "AIzaSyDttn1jZgU-e1A_f0gErIhlh6a9_YCB9W0"
+=======
+          "current_key": "AIzaSyCnrnEDkou40hmnZBlyz4ht1c5DTIhHkKo"
+>>>>>>> 47c7bc2c7c5066f9df7328bc92be2243144408d2
         }
       ],
       "services": {
@@ -37,6 +56,7 @@
           "status": 1
         },
         "appinvite_service": {
+<<<<<<< HEAD
           "status": 2,
           "other_platform_oauth_client": [
             {
@@ -44,6 +64,10 @@
               "client_type": 3
             }
           ]
+=======
+          "status": 1,
+          "other_platform_oauth_client": []
+>>>>>>> 47c7bc2c7c5066f9df7328bc92be2243144408d2
         },
         "ads_service": {
           "status": 2
