@@ -1,27 +1,37 @@
 {
   "project_info": {
-    "project_number": "38673833949",
-    "firebase_url": "https://lendabook-barcode-scanner.firebaseio.com",
-    "project_id": "lendabook-barcode-scanner",
-    "storage_bucket": "lendabook-barcode-scanner.appspot.com"
+    "project_number": "199893234286",
+    "firebase_url": "https://lendabook-register.firebaseio.com",
+    "project_id": "lendabook-register",
+    "storage_bucket": "lendabook-register.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:38673833949:android:1784c9d617832572",
+
+        "mobilesdk_app_id": "1:199893234286:android:1784c9d617832572",
         "android_client_info": {
           "package_name": "com.example.android.lendabook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "38673833949-kfhs0abceh9dqjv2mem7ohn859a1pst8.apps.googleusercontent.com",
+          "client_id": "199893234286-jqebafcjqtjh9mvogvvf5vh3ub6ltqrv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.lendabook",
+            "certificate_hash": "dab69f3db566e6f9cac6eb09c267b73be8842215"
+          }
+        },
+        {
+          "client_id": "199893234286-juilck1m5mln77srtv8oq93cr74ufd60.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCnrnEDkou40hmnZBlyz4ht1c5DTIhHkKo"
+
+          "current_key": "AIzaSyDttn1jZgU-e1A_f0gErIhlh6a9_YCB9W0"
         }
       ],
       "services": {
@@ -29,8 +39,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "199893234286-juilck1m5mln77srtv8oq93cr74ufd60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.lendabook.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignOutFragment extends Fragment {
 
