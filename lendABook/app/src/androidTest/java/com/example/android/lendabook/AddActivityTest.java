@@ -9,6 +9,7 @@ import junit.framework.Assert;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
 import com.example.android.lendabook.Add.AddActivity;
+import com.example.android.lendabook.Home.HomeActivity;
 import com.robotium.solo.Solo;
 import com.robotium.solo.Solo;
 
@@ -50,7 +51,11 @@ public class AddActivityTest extends ActivityTestRule<AddActivity>{
         solo.enterText((EditText) solo.getView(R.id.input_book_description), "Just like the TV show");
 
     }
-
+    @Test
+    public void hitHome(){
+        solo.clickOnMenuItem("ic_house");
+        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
+    }
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
