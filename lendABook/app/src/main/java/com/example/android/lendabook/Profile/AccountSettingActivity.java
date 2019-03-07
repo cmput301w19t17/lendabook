@@ -16,10 +16,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.example.android.lendabook.Home.HomeActivity;
+import com.example.android.lendabook.LogIn.LogInActivity;
 import com.example.android.lendabook.R;
 import com.example.android.lendabook.Utils.BottomNavigationViewHelper;
 import com.example.android.lendabook.Utils.SectionsStatePagerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
@@ -34,14 +39,29 @@ public class AccountSettingActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private RelativeLayout mRelativeLayout;
 
+    private FirebaseAuth Authorization;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Authorization = FirebaseAuth.getInstance();
+
+        if(Authorization.getCurrentUser() == null){
+            finish();
+            Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
+            startActivity(intent);
+        }
+
+        //gets the current user
+        FirebaseUser user = Authorization.getCurrentUser();
+
         setContentView(R.layout.activity_accountsettings);
         mContext = AccountSettingActivity.this;
         Log.d(TAG, "onCreate: started");
         mViewPager = findViewById(R.id.container);
         mRelativeLayout = findViewById(R.id.relLayout1);
+
 
 
         setUpSettingList();
@@ -89,7 +109,16 @@ public class AccountSettingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Log.d(TAG, "onItemClick: navigating to fragment# : " + position);
-                setViewPager(position);
+                //Clicking signout signs you out
+                if(position ==1){
+                    Authorization.signOut();
+                    Toast.makeText(getApplicationContext(), "Logging out.",Toast.LENGTH_LONG).show();
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
+                    startActivity(intent);
+                }else{
+                    setViewPager(0);
+                }
             }
         });
     }
