@@ -36,24 +36,15 @@ dependencies {
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.6.1'
     implementation 'com.android.support:support-annotations:28.0.0'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
-<<<<<<< HEAD
     implementation 'com.google.code.gson:gson:2.8.2'
     // For firebase
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.firebase:firebase-client-android:2.5.2+'
-}
-=======
-
-    // For firebase barcode scanner
-    implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-ml-vision:17.0.0'
     implementation'com.github.d-max:spots-dialog:1.1@aar'
     implementation'com.wonderkiln:camerakit:0.13.1'
-
-
 }
-// For firebase barcode scanner
->>>>>>> 47c7bc2c7c5066f9df7328bc92be2243144408d2
+
 apply plugin: 'com.google.gms.google-services'
