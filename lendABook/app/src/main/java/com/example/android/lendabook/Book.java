@@ -1,28 +1,31 @@
 package com.example.android.lendabook;
 
 public class Book {
-    private int ISBN;
+    private String ISBN;
     private String author;
     private String title;
     private String description;
     private String status;
     private String ownerUsername;
+    private String borrower;
 
-    public Book(int ISBN, String author, String title) {
+   /* public Book(int ISBN, String author, String title) {
         this.ISBN = ISBN;
         this.author = author;
         this.title = title;
-    }
+    }*/
 
-    public Book(int ISBN, String author, String title, String description) {
+    public Book(String ISBN, String author, String title, String description, String status, String borrower) {
         this.ISBN = ISBN;
         this.author = author;
         this.title = title;
         this.description = description;
+        this.status = status;
+        this.borrower = borrower;
     }
 
 
-    public int getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
@@ -32,6 +35,10 @@ public class Book {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getBorrower() {
+        return borrower;
     }
 
     public String getDescription() {
@@ -46,7 +53,7 @@ public class Book {
         return ownerUsername;
     }
 
-    public void setISBN(int ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 

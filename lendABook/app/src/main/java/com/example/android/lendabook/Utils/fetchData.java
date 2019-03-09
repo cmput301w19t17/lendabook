@@ -23,10 +23,10 @@ import java.net.URL;
 
 public class fetchData extends AsyncTask <String, Void, Void> {
     String data = "";
-    public static String parsedTitle = "empty";
-    public static String parsedAuthor = "empty";
-    public static String parsedDescription = "empty";
-    public static String isbn = "empty";
+    public static String parsedTitle = "n";
+    public static String parsedAuthor = "n";
+    public static String parsedDescription = "n";
+    public static String isbn = "n";
     @Override
     protected Void doInBackground(String... parms) {
         try {

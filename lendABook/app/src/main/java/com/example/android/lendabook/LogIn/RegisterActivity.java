@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseUser user = Authentication.getCurrentUser();
         mRef.child("Users").orderByChild("username").equalTo(username)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
+                        @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
                             Toast.makeText(RegisterActivity.this, "Username Taken.",Toast.LENGTH_SHORT).show();
@@ -124,7 +124,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                             FirebaseUser user = Authentication.getCurrentUser();
                             mRef.child("Users").child(user.getUid()).setValue(userInfo);
-
+                            //2 new children for each user
+                            mRef.child("Users").child(user.getUid()).child("books");
+                            mRef.child("Users").child(user.getUid()).child("num_books");
                             Toast.makeText(RegisterActivity.this, "Registration Successful.",Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
