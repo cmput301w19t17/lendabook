@@ -43,6 +43,7 @@ public class AddActivity extends AppCompatActivity {
         EditText descBox = (EditText) findViewById(R.id.input_book_description);
         EditText authorBox = (EditText) findViewById(R.id.input_author);
         Log.d("999: @filltextview", parsedTitle);
+
         isbnBox.setText(isbn);
         isbnTitle.setText(parsedTitle);
         descBox.setText(parsedDescription);
@@ -63,7 +64,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     /**
-     * Responsible for setting up the profile toolbar
+     * Responsible for setting up the add toolbar
      */
     private void setupToolbar() {
         Toolbar toolbar =  findViewById(R.id.profileToolBar);
