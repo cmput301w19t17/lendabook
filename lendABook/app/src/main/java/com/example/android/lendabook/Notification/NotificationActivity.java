@@ -23,7 +23,7 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
         Log.d(TAG, "onCreate: started");
 
-        // setUpBottomNavigationView();
+        setUpBottomNavigationView();
     }
 
     /**
