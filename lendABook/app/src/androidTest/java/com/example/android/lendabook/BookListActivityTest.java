@@ -3,7 +3,8 @@ package com.example.android.lendabook;
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 
-import com.example.android.lendabook.Profile.AccountSettingActivity;
+import com.example.android.lendabook.Add.AddActivity;
+import com.example.android.lendabook.Profile.BookListActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -13,22 +14,16 @@ import org.junit.Test;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
-/***
- * Class to test the AccountSettingActivity
- * @author cjbaker
- * @version 1.0
- */
-public class AccountSettingActivityTest extends ActivityTestRule<AccountSettingActivity> {
-
+public class BookListActivityTest extends ActivityTestRule<BookListActivity> {
     private Solo solo;
-    public AccountSettingActivityTest() { super(AccountSettingActivity.class);}
+    public BookListActivityTest() { super(BookListActivity.class);}
 
     @Rule
-    public ActivityTestRule<AccountSettingActivity> rule =
-            new ActivityTestRule<>(AccountSettingActivity.class, true, true);
+    public ActivityTestRule<AddActivity> rule =
+            new ActivityTestRule<>(AddActivity.class, true, true);
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         solo = new Solo(getInstrumentation(), rule.getActivity());
     }
 
@@ -36,7 +31,6 @@ public class AccountSettingActivityTest extends ActivityTestRule<AccountSettingA
     public void start() throws Exception{
         Activity activity = rule.getActivity();
     }
-
 
     @After
     public void tearDown() throws Exception{

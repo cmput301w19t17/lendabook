@@ -18,7 +18,11 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-
+/***
+ * Class to test the RegisterActivity
+ * @author cjbaker
+ * @version 1.0
+ */
 public class RegisterActivityTest extends ActivityTestRule<RegisterActivity> {
 
     private Solo solo;
@@ -52,7 +56,7 @@ public class RegisterActivityTest extends ActivityTestRule<RegisterActivity> {
     //Test new username
     @Test
     public void Register() throws Exception{
-        solo.enterText((EditText) solo.getView(R.id.input_username), "hello213");
+        solo.enterText((EditText) solo.getView(R.id.input_username), "hello214");
         solo.enterText((EditText) solo.getView(R.id.input_email), "example7@gmail.com");
         solo.enterText((EditText) solo.getView(R.id.input_full_name), "aasdf");
         solo.enterText((EditText) solo.getView(R.id.input_password), "swimming");

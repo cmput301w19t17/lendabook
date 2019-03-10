@@ -16,6 +16,11 @@ import org.junit.Test;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.assertTrue;
 
+/***
+ * Class to test the LogInActivity
+ * @author cjbaker
+ * @version 1.0
+ */
 public class LogInActivityTest extends ActivityTestRule<LogInActivity> {
 
     private Solo solo;
@@ -30,10 +35,10 @@ public class LogInActivityTest extends ActivityTestRule<LogInActivity> {
         solo = new Solo(getInstrumentation(), rule.getActivity());
     }
 
-    /*@Test
+    @Test
     public void start() throws Exception{
         Activity activity = rule.getActivity();
-    }*/
+    }
     //Log In with correct inputs
     @Test
     public void logIn() throws Exception{
