@@ -1,5 +1,9 @@
 package com.example.android.lendabook;
 
+/**
+ * Book class that stores all book information.
+ */
+
 public class Book {
     private String ISBN;
     private String author;
@@ -10,11 +14,6 @@ public class Book {
     private String borrower;
     private String firebaseID;
 
-   /* public Book(int ISBN, String author, String title) {
-        this.ISBN = ISBN;
-        this.author = author;
-        this.title = title;
-    }*/
 
     public Book(String ISBN, String author, String title, String description, String status, String borrower, String firebaseID) {
         this.ISBN = ISBN;

@@ -13,6 +13,10 @@ import android.widget.Button;
 import com.example.android.lendabook.Profile.BookListActivity;
 import com.example.android.lendabook.R;
 
+/**
+ * First page shown when logged in. Not finished for this version. Only contains a temporary button to take you to the list of books you have.
+ */
+
 public class HomeFragment extends Fragment {
     Button btnBookList;
     private static final String TAG = "HomeFragment";

@@ -28,6 +28,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * Displays books associated with your account.
+ * Long pressing a book deletes it.
+ * Taping a book lets you edit it.
+ * 4 Buttons to filter books by status.
+ * Temporary UI for this version
+ * Based on KostinCardioBook
+ * Made by Kostin
+ */
+
 public class BookListActivity extends AppCompatActivity {
 
     private FirebaseAuth Authentication;
