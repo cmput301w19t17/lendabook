@@ -2,7 +2,9 @@ package com.example.android.lendabook;
 
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
+import android.widget.EditText;
 
+import com.example.android.lendabook.LogIn.LogInActivity;
 import com.example.android.lendabook.LogIn.RegisterActivity;
 import com.robotium.solo.Solo;
 
@@ -12,6 +14,10 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 public class RegisterActivityTest extends ActivityTestRule<RegisterActivity> {
 
@@ -31,6 +37,32 @@ public class RegisterActivityTest extends ActivityTestRule<RegisterActivity> {
     @Test
     public void start() throws Exception{
         Activity activity = rule.getActivity();
+    }
+    //register a duplicate username
+    @Test
+    public void registerDuplicate() throws Exception {
+        solo.enterText((EditText) solo.getView(R.id.input_username), "juicy");
+        solo.enterText((EditText) solo.getView(R.id.input_email), "hello@gmail.com");
+        solo.enterText((EditText) solo.getView(R.id.input_full_name), "asdf");
+        solo.enterText((EditText) solo.getView(R.id.input_password), "swimming");
+        solo.clickOnText("Register :)");
+
+        assertTrue(solo.waitForText("Username Taken"));
+    }
+    //Test new username
+    @Test
+    public void Register() throws Exception{
+        solo.enterText((EditText) solo.getView(R.id.input_username), "hello213");
+        solo.enterText((EditText) solo.getView(R.id.input_email), "example7@gmail.com");
+        solo.enterText((EditText) solo.getView(R.id.input_full_name), "aasdf");
+        solo.enterText((EditText) solo.getView(R.id.input_password), "swimming");
+        solo.clickOnText("Register :)");
+        assertTrue(solo.waitForText("Registration Successful"));
+        solo.assertCurrentActivity("Wrong Activity", LogInActivity.class);
+
+
+
+
     }
 
 
