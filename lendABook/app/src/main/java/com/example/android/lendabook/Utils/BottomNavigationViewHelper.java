@@ -45,6 +45,7 @@ public class BottomNavigationViewHelper {
 
                     case R.id.ic_add:
                         Intent intent3 = new Intent(context, AddActivity.class); // ACTIVITY_NUM = 2
+                        intent3.putExtra("cameFrom", 0);
                         context.startActivity(intent3);
                         break;
 

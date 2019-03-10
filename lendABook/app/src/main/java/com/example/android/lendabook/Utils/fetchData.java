@@ -27,6 +27,8 @@ public class fetchData extends AsyncTask <String, Void, Void> {
     public static String parsedAuthor = "n";
     public static String parsedDescription = "n";
     public static String isbn = "n";
+
+    private String[] searchResults = new String[5];
     @Override
     protected Void doInBackground(String... parms) {
         try {
@@ -45,11 +47,12 @@ public class fetchData extends AsyncTask <String, Void, Void> {
             // make json object
             JSONObject JO = new JSONObject(data);
             // calls fill classes to fill textboxes
-            parsedTitle = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("title");
-            isbn = parms[0];
-            parsedAuthor = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
-            parsedDescription = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("description");
-
+            Log.d("999", "done searching");
+            searchResults[0] = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("title");
+            searchResults[2] = parms[0];
+            searchResults[1] = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
+            searchResults[4] = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("description");
+            Log.d("999", "found: " + searchResults[0]);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -65,6 +68,8 @@ public class fetchData extends AsyncTask <String, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         Intent myIntent = new Intent(CameraFragment.cameraActivity, AddActivity.class);
+        myIntent.putExtra("searchResults", searchResults);
+        myIntent.putExtra("cameFrom", 1);
         CameraFragment.cameraActivity.startActivity(myIntent);
     }
 }

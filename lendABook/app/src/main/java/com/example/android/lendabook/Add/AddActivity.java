@@ -35,12 +35,17 @@ public class AddActivity extends AppCompatActivity {
     private EditText isbnBox;
     private  EditText descBox;
     private EditText authorBox;
+    private EditText statusBox;
+
 
     private int numBooks;
+    private int cameFrom; //0 = add buttor, 1 = scan isnb, 2 = edit book
 
     private FirebaseAuth Authentication;
     private DatabaseReference mRef;
     private FirebaseUser fbUser;
+
+    private String fireBaseID;
 
     Button btnAdd;
     @Override
@@ -53,6 +58,7 @@ public class AddActivity extends AppCompatActivity {
         setUpBottomNavigationView();
 
         // text fields
+        statusBox = (EditText) findViewById(R.id.input_status);
         tilteBox = (EditText) findViewById(R.id.input_book_title);
         isbnBox = (EditText) findViewById(R.id.input_isbn);
         descBox = (EditText) findViewById(R.id.input_book_description);
@@ -67,7 +73,13 @@ public class AddActivity extends AppCompatActivity {
         mRef.child("num_books").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                numBooks = dataSnapshot.getValue(int.class);
+                try {
+                    numBooks = dataSnapshot.getValue(int.class);
+                }
+                catch(Exception e){
+                    mRef.child("num_books").setValue("0");
+                    numBooks = 0;
+                }
             }
 
             @Override
@@ -75,44 +87,91 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        // figure out where user came from
+        Intent intent = getIntent();
+        cameFrom = intent.getIntExtra("cameFrom", 999);
+        Log.d("999", "Came From: " + String.valueOf(cameFrom));
+        if (cameFrom == 2){
+            fireBaseID = intent.getStringExtra("fireBaseID");
+            DatabaseReference fillRef = mRef.child("books").child(fireBaseID);
+            fillRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    fillTextView(dataSnapshot.child("title").getValue().toString(),
+                            dataSnapshot.child("author").getValue().toString(),
+                            dataSnapshot.child("isbn").getValue().toString(),
+                            dataSnapshot.child("status").getValue().toString(),
+                            dataSnapshot.child("description").getValue().toString());
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+
+        }
+        if (cameFrom == 1){
+            // fills text boxes with data from search
+            String[] searchResults = intent.getStringArrayExtra("searchResults");
+            //Log.d("999", "searchResuts: " + searchResults.toString());
+            Log.d("999", "scanned barcode");
+            fillTextView(searchResults[0], searchResults[1], searchResults[2], "borrowed", searchResults[4]);
+        }
+
         // add button
         btnAdd = (Button) findViewById(R.id.btn_register);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String isbnText = isbnBox.getText().toString();
-                String titleText = tilteBox.getText().toString();
-                String descText = descBox.getText().toString();
-                String authorText = authorBox.getText().toString();
-                addEntry(isbnText, titleText, descText, authorText, "requested", "Mr. Book Borrower");
+                if (cameFrom == 2) {
+                    String isbnText = isbnBox.getText().toString();
+                    String titleText = tilteBox.getText().toString();
+                    String descText = descBox.getText().toString();
+                    String authorText = authorBox.getText().toString();
+                    String statusText = statusBox.getText().toString();
+                    updateEntry(isbnText, titleText, descText, authorText, statusText, "Mr. Book Borrower", Integer.parseInt(fireBaseID));
+                }else{
+                    String isbnText = isbnBox.getText().toString();
+                    String titleText = tilteBox.getText().toString();
+                    String descText = descBox.getText().toString();
+                    String authorText = authorBox.getText().toString();
+                    String statusText = statusBox.getText().toString();
+                    addEntry(isbnText, titleText, descText, authorText, statusText, "Mr. Book Borrower", String.valueOf(numBooks));
+                }
+
             }
         });
-
-        // fills text boxes with data from search
-        //fillTextView();
     }
 
-    private void addEntry(String isbnText, String titleText, String descText, String authorText, String status, String borrower) {
+    private void updateEntry(String isbnText, String titleText, String descText, String authorText, String status, String borrower, int FBID) {
         // creates new book object
-        Book book = new Book(isbnText, authorText, titleText, descText, status, borrower);
+        Book book = new Book(isbnText, authorText, titleText, descText, status, borrower, Integer.toString(FBID));
         // adds the book to book list on firebase and increase the number of book firebase
-        mRef.child("books").child(String.valueOf(numBooks)).setValue(book);
-        mRef.child("num_books").setValue(numBooks+1);
+        mRef.child("books").child(book.getFirebaseID()).setValue(book);
         Intent intent = new Intent(AddActivity.this, BookListActivity.class);
         startActivity(intent);
+    }
 
+    private void addEntry(String isbnText, String titleText, String descText, String authorText, String status, String borrower, String FBID) {
+        // creates new book object
+        Book book = new Book(isbnText, authorText, titleText, descText, status, borrower, FBID);
+        // adds the book to book list on firebase and increase the number of book firebase
+        mRef.child("books").child(book.getFirebaseID()).setValue(book);
+        numBooks += 1;
+        mRef.child("num_books").setValue(numBooks);
+        Intent intent = new Intent(AddActivity.this, BookListActivity.class);
+        startActivity(intent);
     }
 
 
     // fills text boxes with data from book api
     // I NEED TO CHANGE THIS, I THINK IT WORKS IF YOU UNCOMMENT IT BUT IT'S MESSY -Peter
-   /*private void fillTextView(){
-        Log.d("999: @filltextview", parsedTitle);
+   private void fillTextView(String title, String author, String isbn, String status, String desc){
         isbnBox.setText(isbn);
-        tilteBox.setText(parsedTitle);
-        descBox.setText(parsedDescription);
-        authorBox.setText(parsedAuthor);
-    }*/
+        statusBox.setText(status);
+        tilteBox.setText(title);
+        descBox.setText(desc);
+        authorBox.setText(author);
+    }
 
     /**
      * BottomNavigationView setup
