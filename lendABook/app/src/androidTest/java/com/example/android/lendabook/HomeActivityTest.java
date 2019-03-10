@@ -43,7 +43,7 @@ public class HomeActivityTest extends ActivityTestRule<HomeActivity> {
         solo.clickOnText("Show Book List");
         solo.assertCurrentActivity("Wrong Activity", BookListActivity.class);
     }
-    
+
 
     @Test
     public void start() throws Exception{

@@ -1,6 +1,7 @@
 package com.example.android.lendabook.Profile;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.lendabook.Add.AddActivity;
@@ -76,6 +79,54 @@ public class BookListActivity extends AppCompatActivity {
         fbUser =  Authentication.getCurrentUser();
         mRef = FirebaseDatabase.getInstance().getReference().child("Users").child(fbUser.getUid());
 
+
+        // spinner / dropdown
+        Spinner spinner = findViewById(R.id.spinner);
+
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(BookListActivity.this,
+                R.layout.spinner_item, getResources().getStringArray(R.array.book_status));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(myAdapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                if (adapterView.getSelectedItem().toString() == "Available") {
+                        filter = "available";
+                        displayBook();
+                    }
+
+                    else if (adapterView.getSelectedItem().toString() == "Requested") {
+                        filter = "requested";
+                        displayBook();
+                    }
+
+                    else if (adapterView.getSelectedItem().toString() == "Accepted") {
+                        filter = "accepted";
+                        displayBook();
+                    }
+
+                    else if (adapterView.getSelectedItem().toString() == "Borrowed") {
+                        filter = "borrowed";
+                        displayBook();
+                    }
+
+                    else if (adapterView.getSelectedItem().toString() == "All") {
+                        filter = "";
+                        displayBook();
+                    }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+/*
         //buttons
         btnAccepted = (Button) findViewById(R.id.btnAccepted);
         btnAccepted.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +171,8 @@ public class BookListActivity extends AppCompatActivity {
                 displayBook();
             }
         });
+
+        */
 
         Log.d("999", String.valueOf(numBooks));
         mRef.child("num_books").addValueEventListener(new ValueEventListener() {
