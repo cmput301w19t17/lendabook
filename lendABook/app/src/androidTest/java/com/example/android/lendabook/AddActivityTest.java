@@ -7,9 +7,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import junit.framework.Assert;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertTrue;
 
 import com.example.android.lendabook.Add.AddActivity;
 import com.example.android.lendabook.Home.HomeActivity;
+import com.example.android.lendabook.Profile.BookListActivity;
 import com.robotium.solo.Solo;
 import com.robotium.solo.Solo;
 
@@ -42,20 +44,18 @@ public class AddActivityTest extends ActivityTestRule<AddActivity>{
     }
 
     @Test
-    public void checkBook(){
+    public void addBook(){
 
         solo.assertCurrentActivity("Wrong Activity", AddActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.input_book_title), "Game of Thrones");
+        solo.enterText((EditText) solo.getView(R.id.input_book_title), "Game of Thrones 2");
         solo.enterText((EditText) solo.getView(R.id.input_author), "George R. R. Martin");
         solo.enterText((EditText) solo.getView(R.id.input_isbn), "123 456 789 00");
         solo.enterText((EditText) solo.getView(R.id.input_book_description), "Just like the TV show");
+        solo.clickOnText("Add to my books");
+        solo.assertCurrentActivity("Wrong Activity", BookListActivity.class);
 
     }
-    @Test
-    public void hitHome(){
-        solo.clickOnMenuItem("ic_house");
-        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-    }
+
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
