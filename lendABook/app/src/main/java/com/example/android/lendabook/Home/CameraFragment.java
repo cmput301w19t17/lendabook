@@ -36,8 +36,11 @@ import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 
-// based on https://www.youtube.com/watch?v=NSq0nuc6-AI
-// made by peter
+/**
+ * Gets an image from the camera using CameraKit and scans it for an ISBN using Firebase ML Vision
+ * Based on tutorial from https://www.youtube.com/watch?v=NSq0nuc6-AI
+ * Made by Kostin
+ */
 
 public class CameraFragment extends Fragment {
 

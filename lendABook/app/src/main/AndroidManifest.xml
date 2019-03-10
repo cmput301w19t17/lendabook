@@ -11,23 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".Profile.BookListActivity"
+            android:label="@string/title_activity_book_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".LogIn.LogInActivity">
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-                android:value="barcode"/>
+                android:value="barcode" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name = ".LogIn.RegisterActivity"></activity>
-        <activity android:name = ".Home.HomeActivity"></activity>
-        <activity android:name = ".Search.SearchActivity"></activity>
-        <activity android:name = ".Add.AddActivity"></activity>
-        <activity android:name = ".Notification.NotificationActivity"></activity>
-        <activity android:name = ".Profile.ProfileActivity"></activity>
-        <activity android:name = ".Profile.AccountSettingActivity"></activity>
+        <activity android:name=".LogIn.RegisterActivity" />
+        <activity android:name=".Home.HomeActivity" />
+        <activity android:name=".Search.SearchActivity" />
+        <activity android:name=".Add.AddActivity" />
+        <activity android:name=".Notification.NotificationActivity" />
+        <activity android:name=".Profile.ProfileActivity" />
+        <activity android:name=".Profile.AccountSettingActivity" />
     </application>
+
 </manifest>

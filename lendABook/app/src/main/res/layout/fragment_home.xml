@@ -11,4 +11,13 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         />
+
+    <Button
+        android:id="@+id/btn_bklist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="226dp"
+        android:layout_marginLeft="40dp"
+        android:text="Show Book List" />
 </RelativeLayout>

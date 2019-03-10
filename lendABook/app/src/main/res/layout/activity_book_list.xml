@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile.BookListActivity">
+
+    <ListView
+        android:id="@+id/oldEntryList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+
+        />
+
+    <Button
+        android:id="@+id/btnAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="available" />/>
+
+    <Button
+        android:id="@+id/btnRequested"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:text="requested" />
+    <Button
+        android:id="@+id/btnAccepted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:text="Accepted" />
+    <Button
+        android:id="@+id/btnBorrowed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="300dp"
+        android:text="borrowed" />
+    <Button
+        android:id="@+id/btnAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="40dp"
+        android:text="All" />
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,28 +1,37 @@
 package com.example.android.lendabook;
 
+/**
+ * Book class that stores all book information.
+ */
+
 public class Book {
-    private int ISBN;
+    private String ISBN;
     private String author;
     private String title;
     private String description;
     private String status;
     private String ownerUsername;
+    private String borrower;
+    private String firebaseID;
 
-    public Book(int ISBN, String author, String title) {
-        this.ISBN = ISBN;
-        this.author = author;
-        this.title = title;
-    }
 
-    public Book(int ISBN, String author, String title, String description) {
+    public Book(String ISBN, String author, String title, String description, String status, String borrower, String firebaseID) {
         this.ISBN = ISBN;
         this.author = author;
         this.title = title;
         this.description = description;
+        this.status = status;
+        this.borrower = borrower;
+        this.firebaseID = firebaseID;
+
     }
 
+    @Override
+    public String toString() {
+        return "Title: " + title + "\nAuthor: " + author + "\nISBN: " + ISBN + "\nDescription: " + description +"\nStatus: " + status +"\nBorrower: " + borrower;
+    }
 
-    public int getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
@@ -32,6 +41,10 @@ public class Book {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getBorrower() {
+        return borrower;
     }
 
     public String getDescription() {
@@ -46,13 +59,22 @@ public class Book {
         return ownerUsername;
     }
 
-    public void setISBN(int ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    public void setFirebaseID(String firebaseID) {
+        this.author = firebaseID;
+    }
+
+    public String getFirebaseID() {
+        return firebaseID;
+    }
+
 
     public void setTitle(String title) {
         this.title = title;

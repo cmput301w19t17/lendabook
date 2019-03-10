@@ -19,18 +19,24 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-//sauce https://www.youtube.com/watch?v=Vcn4OuV4Ixg https://stackoverflow.com/questions/14571478/using-google-books-api-in-android
+/**
+ * Fetches data from google books api.
+ * This version only does it for ISBN since search isn't implemented.
+ * Google books API based on https://www.youtube.com/watch?v=Vcn4OuV4Ixg https://stackoverflow.com/questions/14571478/using-google-books-api-in-android
+ * Made by Kostin
+ */
 
 public class fetchData extends AsyncTask <String, Void, Void> {
     String data = "";
-    public static String parsedTitle = "empty";
-    public static String parsedAuthor = "empty";
-    public static String parsedDescription = "empty";
-    public static String isbn = "empty";
+    public static String parsedTitle = "n";
+    public static String parsedAuthor = "n";
+    public static String parsedDescription = "n";
+    public static String isbn = "n";
+
+    private String[] searchResults = new String[5];
     @Override
     protected Void doInBackground(String... parms) {
         try {
-            Log.d("999:", "trying: " + parms[0]);
             URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=isbn:" + parms[0]);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
@@ -45,11 +51,10 @@ public class fetchData extends AsyncTask <String, Void, Void> {
             // make json object
             JSONObject JO = new JSONObject(data);
             // calls fill classes to fill textboxes
-            parsedTitle = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("title");
-            isbn = parms[0];
-            parsedAuthor = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
-            parsedDescription = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("description");
-
+            searchResults[0] = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("title");
+            searchResults[2] = parms[0];
+            searchResults[1] = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
+            searchResults[4] = JO.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("description");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -65,6 +70,8 @@ public class fetchData extends AsyncTask <String, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         Intent myIntent = new Intent(CameraFragment.cameraActivity, AddActivity.class);
+        myIntent.putExtra("searchResults", searchResults);
+        myIntent.putExtra("cameFrom", 1);
         CameraFragment.cameraActivity.startActivity(myIntent);
     }
 }
