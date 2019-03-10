@@ -135,14 +135,16 @@ public class AddActivity extends AppCompatActivity {
                     String descText = descBox.getText().toString();
                     String authorText = authorBox.getText().toString();
                     String statusText = statusBox.getText().toString();
-                    addEntry(isbnText, titleText, descText, authorText, statusText, "Mr. Book Borrower", String.valueOf(numBooks));
+                    addEntry(isbnText, titleText, descText, authorText, statusText,
+                            "Mr. Book Borrower", String.valueOf(numBooks));
                 }
 
             }
         });
     }
 
-    private void updateEntry(String isbnText, String titleText, String descText, String authorText, String status, String borrower, int FBID) {
+    private void updateEntry(String isbnText, String titleText, String descText, String authorText,
+                             String status, String borrower, int FBID) {
         // creates new book object
         Book book = new Book(isbnText, authorText, titleText, descText, status, borrower, Integer.toString(FBID));
         // adds the book to book list on firebase and increase the number of book firebase

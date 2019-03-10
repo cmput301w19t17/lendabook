@@ -271,4 +271,5 @@ public class BookListActivity extends AppCompatActivity {
         oldEntryList.setAdapter(adapter);
     }
 
+
 }
