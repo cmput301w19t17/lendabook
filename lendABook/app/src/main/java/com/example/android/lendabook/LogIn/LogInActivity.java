@@ -21,6 +21,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Created by oleg on 2019-03-03.
+ * Class for logging in as an existing user.
+ */
+
+/**
+ * The log in activity when logging in as an existing user.
+ *  Class uses Firebase database to authenticate an existing user and then sets the user to the current user.
+ *  You need an email and password to log in.
+ *  Successful login moves the user to the HomeActivity of the application.
+ */
+
 public class LogInActivity extends AppCompatActivity {
 
     private static final String TAG = "LogInActivity";
@@ -32,6 +44,13 @@ public class LogInActivity extends AppCompatActivity {
 
     private FirebaseAuth Authorization;
 
+    /**
+     * Sets up and initializes the Activity.
+     * If current user is specified, we are already logged in and transfers to home page.
+     * Else, wait for button click to move to method that an account exists with this info.
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +78,23 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
-    //clicking on Register TextView sends you to the register page
+
+    /**
+     * Sets up the clickable view (blue link text) in order to move user to the RegisterActivity where
+     * they can create an account.
+     *
+     * @param view
+     */
     public void click(View view){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * LogIn method logs the user in.
+     * It obtains email and password from the EditText.
+     * Method makes sure neither of the entries are empty and then verifies that the account exists with Firebase authentication.
+     */
     public void LogIn(){
         String email = input_email.getText().toString();
         String password = input_password.getText().toString();

@@ -34,5 +34,8 @@
         <activity android:name=".Profile.ProfileActivity" />
         <activity android:name=".Profile.AccountSettingActivity" />
     </application>
+<<<<<<< HEAD
 
+=======
+>>>>>>> oleg
 </manifest>
