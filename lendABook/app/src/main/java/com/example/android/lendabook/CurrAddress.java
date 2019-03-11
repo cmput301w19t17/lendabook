@@ -1,10 +1,28 @@
 package com.example.android.lendabook;
 
+/**
+ * Created by belachew on 2019-02-27.
+ * Class for current address.
+ */
+
+/**
+ * The class to get information about current address
+ */
+
 public class CurrAddress {
     private String country;
     private String city;
     private String stateProvince;
     private String houseNo;
+    
+    /**
+     * Gets info about current address
+     *
+     * @param country
+     * @param stateProvince
+     * @param city
+     * @param houseNo
+     */
 
     public CurrAddress(String country,String stateProvince, String city, String houseNo) {
         this.country = country;
