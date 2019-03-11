@@ -34,6 +34,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.io.IOException;
+/**
+ * Created by kostin on 2019-03-01.
+ * Class for interaction between scanning and filling out info about book in add book activity.
+ */
+
+/**
+    Scan book, get information from google API and then populate the editText in AddBook activity.
+ */
 
 public class AddActivity extends AppCompatActivity {
     private static final String TAG = "AddActivity";
@@ -56,7 +64,12 @@ public class AddActivity extends AppCompatActivity {
     private FirebaseUser fbUser;
 
     private String fireBaseID;
-
+    
+    /**
+     * Does initializaton of the activity, scanning, adding to slots in addBook activity
+     *
+     * @param savedInstanceState
+     */
     Button btnAdd;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -173,7 +186,17 @@ public class AddActivity extends AppCompatActivity {
         Intent intent = new Intent(AddActivity.this, BookListActivity.class);
         startActivity(intent);
     }
-
+     /**
+     * Adds entry of books.
+     *
+     * @param isbnText
+     * @param titleText
+     * @param descText
+     * @param authorText
+     * @param status
+     * @param borrower
+     * @param FBID
+     */
     private void addEntry(String isbnText, String titleText, String descText, String authorText, String status, String borrower, String FBID) {
         // creates new book object
         Book book = new Book(isbnText, authorText, titleText, descText, status, borrower, FBID);
@@ -185,9 +208,16 @@ public class AddActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    // fills text boxes with data from book api
-    // I NEED TO CHANGE THIS, I THINK IT WORKS IF YOU UNCOMMENT IT BUT IT'S MESSY -Peter
+    /**
+     * Fills text boxes with data from book api
+     * I NEED TO CHANGE THIS, I THINK IT WORKS IF YOU UNCOMMENT IT BUT IT'S MESSY -Peter
+     *
+     * @param title
+     * @param author
+     * @param isbn
+     * @param status
+     * @param desc
+     */
    private void fillTextView(String title, String author, String isbn, String status, String desc){
         isbnBox.setText(isbn);
         statusBox.setText(status);
@@ -231,7 +261,14 @@ public class AddActivity extends AppCompatActivity {
 
         startActivityForResult(chooserIntent, RESULT_LOAD_IMAGE);
     }
-
+    
+     /**
+     * finishes everything
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
