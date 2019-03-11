@@ -16,15 +16,34 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+/**
+ * Created by belachew on 2019-02-27.
+ * Class for the universal image loader.
+ */
+
+/**
+ * The class is for the Universal image loader.
+ */
+
 public class UniversalImageLoader {
 
     private static final int defaultImage = R.drawable.ic_user;
     private Context mContext;
-
+    
+    /**
+     * gets context for image loader.
+     *
+     * @param context
+     */
     public UniversalImageLoader(Context context) {
         mContext = context;
     }
-
+    
+    /**
+     * gets configuration for image loader.
+     *
+     * @return configuration
+     */
     public ImageLoaderConfiguration getConfig() {
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(defaultImage)
