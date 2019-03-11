@@ -1,5 +1,14 @@
 package com.example.android.lendabook;
 
+/**
+ * Created by belachew on 2019-02-27.
+ * Class for saving user information.
+ */
+
+/**
+ * The for contact information.
+ */
+
 public class ContactInfo {
 
     private String name;
@@ -7,7 +16,16 @@ public class ContactInfo {
     private PhoneNo phoneNo;
     private CurrAddress currAddress;
     private String email;
-
+    
+    /**
+     * Contact information for user
+     *
+     * @param name
+     * @param age
+     * @param phoneNo
+     * @param currAddress
+     * @param email
+     */
     public ContactInfo(String name, Integer age, PhoneNo phoneNo, CurrAddress currAddress, String email) {
         this.name = name;
         this.age = age;
