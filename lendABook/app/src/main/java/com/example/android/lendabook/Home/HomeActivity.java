@@ -16,13 +16,26 @@ import com.example.android.lendabook.Utils.UniversalImageLoader;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+/**
+ * Created by belachew on 2019-02-27.
+ * Class for the Home Activity
+ */
+
+/**
+ * The class is for creation of the home layout.
+ */
+
 public class HomeActivity extends AppCompatActivity {
 
     private static final String TAG = "HomeActivity";
     private Context mContext = HomeActivity.this;
     private static final int ACTIVITY_NUM = 0;
 
-
+    /**
+     * Creates home layout.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
