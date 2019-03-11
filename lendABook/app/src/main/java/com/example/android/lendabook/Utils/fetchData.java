@@ -20,6 +20,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
+ * Created by kostin on 2019-02-31.
+ * Class for the bottom navigation bar.
+ */
+
+/**
  * Fetches data from google books api.
  * This version only does it for ISBN since search isn't implemented.
  * Google books API based on https://www.youtube.com/watch?v=Vcn4OuV4Ixg https://stackoverflow.com/questions/14571478/using-google-books-api-in-android
@@ -34,6 +39,11 @@ public class fetchData extends AsyncTask <String, Void, Void> {
     public static String isbn = "n";
 
     private String[] searchResults = new String[5];
+    /**
+     * commands for using google API in the background
+     *
+     * @param parms
+     */
     @Override
     protected Void doInBackground(String... parms) {
         try {
@@ -65,7 +75,12 @@ public class fetchData extends AsyncTask <String, Void, Void> {
 
         return null;
     }
-
+    
+    /**
+     * Executes and moves to a new activity.
+     *
+     * @param aVoid
+     */
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
