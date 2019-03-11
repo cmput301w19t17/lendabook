@@ -21,7 +21,7 @@ import java.net.URL;
 
 /**
  * Created by kostin on 2019-02-31.
- * Class for the bottom navigation bar.
+ * Class for google API for scanning ISBN.
  */
 
 /**
