@@ -1,7 +1,7 @@
 package com.example.android.lendabook;
 
 /**
- * Created by kostin on 2019-03-03.
+ * Created by kostin on 2019-02-27.
  * Class for saving/storying book information.
  */
 
