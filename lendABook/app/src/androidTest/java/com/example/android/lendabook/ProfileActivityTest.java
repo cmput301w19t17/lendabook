@@ -14,6 +14,11 @@ import org.junit.Test;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
+/***
+ * Class to test the ProfileActivity
+ * @author cjbaker
+ * @version 1.0
+ */
 public class ProfileActivityTest extends ActivityTestRule<ProfileActivity> {
 
     private Solo solo;

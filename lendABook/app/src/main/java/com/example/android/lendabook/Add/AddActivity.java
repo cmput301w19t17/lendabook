@@ -1,8 +1,12 @@
 package com.example.android.lendabook.Add;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.android.lendabook.Book;
 import com.example.android.lendabook.Profile.BookListActivity;
@@ -27,10 +33,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.io.IOException;
+/**
+ * Created by kostin on 2019-03-01.
+ * Class for interaction between scanning and filling out info about book in add book activity.
+ */
+
+/**
+    Scan book, get information from google API and then populate the editText in AddBook activity.
+ */
+
 public class AddActivity extends AppCompatActivity {
     private static final String TAG = "AddActivity";
     private Context mContext = AddActivity.this;
     private static final int ACTIVITY_NUM = 2;
+    private static final int RESULT_LOAD_IMAGE = 1;
+
     private EditText tilteBox;
     private EditText isbnBox;
     private  EditText descBox;
@@ -46,13 +64,29 @@ public class AddActivity extends AppCompatActivity {
     private FirebaseUser fbUser;
 
     private String fireBaseID;
-
+    
+    /**
+     * Does initializaton of the activity, scanning, adding to slots in addBook activity
+     *
+     * @param savedInstanceState
+     */
     Button btnAdd;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         Log.d(TAG, "onCreate: started");
+
+        TextView include_picture = findViewById(R.id.include_picture_text_view);
+        final ImageView remove_image = findViewById(R.id.remove_image);
+        include_picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPhoto();
+            }
+        });
+
+        remove_image.setVisibility(View.GONE);
 
         setupToolbar();
         setUpBottomNavigationView();
@@ -135,14 +169,16 @@ public class AddActivity extends AppCompatActivity {
                     String descText = descBox.getText().toString();
                     String authorText = authorBox.getText().toString();
                     String statusText = statusBox.getText().toString();
-                    addEntry(isbnText, titleText, descText, authorText, statusText, "Mr. Book Borrower", String.valueOf(numBooks));
+                    addEntry(isbnText, titleText, descText, authorText, statusText,
+                            "Mr. Book Borrower", String.valueOf(numBooks));
                 }
 
             }
         });
     }
 
-    private void updateEntry(String isbnText, String titleText, String descText, String authorText, String status, String borrower, int FBID) {
+    private void updateEntry(String isbnText, String titleText, String descText, String authorText,
+                             String status, String borrower, int FBID) {
         // creates new book object
         Book book = new Book(isbnText, authorText, titleText, descText, status, borrower, Integer.toString(FBID));
         // adds the book to book list on firebase and increase the number of book firebase
@@ -150,7 +186,17 @@ public class AddActivity extends AppCompatActivity {
         Intent intent = new Intent(AddActivity.this, BookListActivity.class);
         startActivity(intent);
     }
-
+     /**
+     * Adds entry of books.
+     *
+     * @param isbnText
+     * @param titleText
+     * @param descText
+     * @param authorText
+     * @param status
+     * @param borrower
+     * @param FBID
+     */
     private void addEntry(String isbnText, String titleText, String descText, String authorText, String status, String borrower, String FBID) {
         // creates new book object
         Book book = new Book(isbnText, authorText, titleText, descText, status, borrower, FBID);
@@ -162,9 +208,16 @@ public class AddActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    // fills text boxes with data from book api
-    // I NEED TO CHANGE THIS, I THINK IT WORKS IF YOU UNCOMMENT IT BUT IT'S MESSY -Peter
+    /**
+     * Fills text boxes with data from book api
+     * I NEED TO CHANGE THIS, I THINK IT WORKS IF YOU UNCOMMENT IT BUT IT'S MESSY -Peter
+     *
+     * @param title
+     * @param author
+     * @param isbn
+     * @param status
+     * @param desc
+     */
    private void fillTextView(String title, String author, String isbn, String status, String desc){
         isbnBox.setText(isbn);
         statusBox.setText(status);
@@ -192,6 +245,58 @@ public class AddActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar =  findViewById(R.id.profileToolBar);
         setSupportActionBar(toolbar);
+
+    }
+
+    private void getPhoto() {
+        // open image picker
+        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        getIntent.setType("image/*");
+
+        Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickIntent.setType("image/*");
+
+        Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+
+        startActivityForResult(chooserIntent, RESULT_LOAD_IMAGE);
+    }
+    
+     /**
+     * finishes everything
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        final ImageView selected_image = findViewById(R.id.selected_image);
+        final ImageView remove_image = findViewById(R.id.remove_image);
+        remove_image.setVisibility(View.VISIBLE);
+
+        remove_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selected_image.setImageBitmap(null);
+                remove_image.setVisibility(View.GONE);
+            }
+        });
+
+        if(resultCode == Activity.RESULT_OK)
+            switch (requestCode){
+                case RESULT_LOAD_IMAGE:
+                    Uri selectedImage = data.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                        selected_image.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        Log.i("TAG", "Some exception " + e);
+                    }
+                    break;
+            }
 
     }
 }

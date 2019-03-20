@@ -13,6 +13,11 @@ import org.junit.Test;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
+/***
+ * Class to test the SearchActivity
+ * @author cjbaker
+ * @version 1.0
+ */
 public class SearchActivityTest extends ActivityTestRule<SearchActivity> {
 
     private Solo solo;

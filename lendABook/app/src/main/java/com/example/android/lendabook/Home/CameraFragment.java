@@ -37,6 +37,11 @@ import java.util.List;
 import dmax.dialog.SpotsDialog;
 
 /**
+ * Created by kostin on 2019-02-27.
+ * Class for the bottom navigation bar.
+ */
+
+/**
  * Gets an image from the camera using CameraKit and scans it for an ISBN using Firebase ML Vision
  * Based on tutorial from https://www.youtube.com/watch?v=NSq0nuc6-AI
  * Made by Kostin
@@ -63,7 +68,14 @@ public class CameraFragment extends Fragment {
         super.onPause();
         cameraView.stop();
     }
-
+    
+     /**
+     * Initializes camera fragment for scanning
+     *
+     * @param inflater
+     * @param containter
+     * @param savedInstanceState
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -116,7 +128,12 @@ public class CameraFragment extends Fragment {
 
         return view;
     }
-
+    
+     /**
+     * Detects the scanner working
+     *
+     * @param bitmap
+     */
     private void runDetector(Bitmap bitmap) {
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
         FirebaseVisionBarcodeDetectorOptions options = new FirebaseVisionBarcodeDetectorOptions.Builder()
