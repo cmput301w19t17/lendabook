@@ -6,6 +6,10 @@ import android.widget.EditText;
 
 import com.example.android.lendabook.LogIn.LogInActivity;
 import com.example.android.lendabook.LogIn.RegisterActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -27,6 +31,8 @@ public class RegisterActivityTest extends ActivityTestRule<RegisterActivity> {
 
     private Solo solo;
     public RegisterActivityTest(){ super(RegisterActivity.class);}
+    private FirebaseAuth Authentication;
+    private DatabaseReference mRef;
 
     @Rule
 
@@ -56,13 +62,21 @@ public class RegisterActivityTest extends ActivityTestRule<RegisterActivity> {
     //Test new username
     @Test
     public void Register() throws Exception{
-        solo.enterText((EditText) solo.getView(R.id.input_username), "hello214");
-        solo.enterText((EditText) solo.getView(R.id.input_email), "example7@gmail.com");
+        solo.enterText((EditText) solo.getView(R.id.input_username), "hello21134");
+        solo.enterText((EditText) solo.getView(R.id.input_email), "example9@gmail.com");
         solo.enterText((EditText) solo.getView(R.id.input_full_name), "aasdf");
         solo.enterText((EditText) solo.getView(R.id.input_password), "swimming");
         solo.clickOnText("Register :)");
         assertTrue(solo.waitForText("Registration Successful"));
         solo.assertCurrentActivity("Wrong Activity", LogInActivity.class);
+        Authentication = FirebaseAuth.getInstance();
+
+        mRef = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser user = Authentication.getCurrentUser();
+
+
+
+
 
 
 
