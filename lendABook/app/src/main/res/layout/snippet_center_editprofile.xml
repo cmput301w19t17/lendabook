@@ -14,56 +14,41 @@
             android:padding="20dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_photo"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:id="@+id/profile_photo"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 app:civ_border_color="@color/black"
-                app:civ_border_width="2dp"
-                android:layout_centerHorizontal="true"
-                />
+                app:civ_border_width="2dp" />
 
             <TextView
                 android:id="@+id/changeProfilePhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Change Profile Photo"
                 android:layout_below="@+id/profile_photo"
                 android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:text="Change Profile Photo"
                 android:textColor="@color/linkBlue"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
 
             <!-- display username section -->
+
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:id="@+id/relLayout1"
+                android:layout_width="377dp"
+                android:layout_height="70dp"
                 android:layout_below="@+id/changeProfilePhoto"
-                android:layout_marginTop="80dp"
-                android:background="@drawable/grey_border_bottom"
-                android:id="@+id/relLayout1">
+                android:layout_marginTop="31dp"
+                android:background="@drawable/grey_border_bottom">
 
-                <ImageView
-                    android:src="@drawable/ic_name"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_centerVertical="true"
-                    />
-
-                <EditText
-                    android:id="@+id/username"
+                <Button
+                    android:id="@+id/Save"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginLeft="40dp"
-                    android:background="@null"
-                    android:inputType="textNoSuggestions"
-                    android:hint="username"
-                    android:textColorHint="@color/grey"
-                    android:textColor="@color/black"
-                    />
-
+                    android:background="@drawable/white_rounded_button"
+                    android:text="Save" />
             </RelativeLayout>
 
             <!-- display name section -->
@@ -72,29 +57,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/relLayout1"
-                android:background="@drawable/grey_border_bottom"
-                >
+                android:background="@drawable/grey_border_bottom">
 
                 <ImageView
-                    android:src="@drawable/ic_username"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
-                    />
+                    android:src="@drawable/ic_username" />
 
                 <EditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_alignParentTop="true"
                     android:layout_marginStart="40dp"
                     android:layout_marginLeft="40dp"
+                    android:layout_marginTop="13dp"
                     android:background="@null"
-                    android:inputType="textNoSuggestions"
                     android:hint="Name"
-                    android:textColorHint="@color/grey"
+                    android:inputType="textNoSuggestions"
                     android:textColor="@color/black"
-                    />
+                    android:textColorHint="@color/grey" />
 
             </RelativeLayout>
 
@@ -105,15 +88,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/relLayout2"
-                android:background="@drawable/grey_border_bottom"
-                >
+                android:background="@drawable/grey_border_bottom">
 
                 <ImageView
-                    android:src="@drawable/ic_website"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
-                    />
+                    android:src="@drawable/ic_website" />
 
                 <EditText
                     android:id="@+id/website"
@@ -123,11 +104,10 @@
                     android:layout_marginStart="40dp"
                     android:layout_marginLeft="40dp"
                     android:background="@null"
-                    android:inputType="textWebEditText"
                     android:hint="website"
-                    android:textColorHint="@color/grey"
+                    android:inputType="textWebEditText"
                     android:textColor="@color/black"
-                    />
+                    android:textColorHint="@color/grey" />
 
             </RelativeLayout>
 
@@ -138,15 +118,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/relLayout3"
-                android:background="@drawable/grey_border_bottom"
-                >
+                android:background="@drawable/grey_border_bottom">
 
                 <ImageView
-                    android:src="@drawable/ic_description"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
-                    />
+                    android:src="@drawable/ic_description" />
 
                 <EditText
                     android:id="@+id/description"
@@ -156,11 +134,10 @@
                     android:layout_marginStart="40dp"
                     android:layout_marginLeft="40dp"
                     android:background="@null"
-                    android:inputType="textNoSuggestions"
                     android:hint="Description"
-                    android:textColorHint="@color/grey"
+                    android:inputType="textNoSuggestions"
                     android:textColor="@color/black"
-                    />
+                    android:textColorHint="@color/grey" />
 
             </RelativeLayout>
 
@@ -169,14 +146,13 @@
                 android:id="@+id/textPrivateInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:text="PRIVATE INFORMATION"
                 android:layout_below="@id/relLayout4"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:textColor="@color/black"
                 android:background="@drawable/grey_border_bottom"
-                />
+                android:text="CONTACT INFORMATION"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
 
 
             <!-- email section -->
@@ -185,15 +161,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/textPrivateInfo"
-                android:background="@drawable/grey_border_bottom"
-                >
+                android:background="@drawable/grey_border_bottom">
 
                 <ImageView
-                    android:src="@drawable/ic_email"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
-                    />
+                    android:src="@drawable/ic_email" />
 
                 <EditText
                     android:id="@+id/email"
@@ -203,11 +177,10 @@
                     android:layout_marginStart="40dp"
                     android:layout_marginLeft="40dp"
                     android:background="@null"
-                    android:inputType="textEmailAddress"
                     android:hint="Email"
-                    android:textColorHint="@color/grey"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/black"
-                    />
+                    android:textColorHint="@color/grey" />
 
             </RelativeLayout>
 
@@ -218,15 +191,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/relLayout5"
-                android:background="@drawable/grey_border_bottom"
-                >
+                android:background="@drawable/grey_border_bottom">
 
                 <ImageView
-                    android:src="@drawable/ic_phone"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
-                    />
+                    android:src="@drawable/ic_phone" />
 
                 <EditText
                     android:id="@+id/phoneNumber"
@@ -236,11 +207,10 @@
                     android:layout_marginStart="40dp"
                     android:layout_marginLeft="40dp"
                     android:background="@null"
-                    android:inputType="phone"
                     android:hint="Phone Number"
-                    android:textColorHint="@color/grey"
+                    android:inputType="phone"
                     android:textColor="@color/black"
-                    />
+                    android:textColorHint="@color/grey" />
 
             </RelativeLayout>
 

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.android.lendabook.R;
 import com.example.android.lendabook.Utils.BottomNavigationViewHelper;
@@ -24,6 +25,19 @@ public class SearchActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: started");
 
         setUpBottomNavigationView();
+    }
+
+    private void searchForMatch(String keyword) {
+        // TODO: searches for a match..
+        Log.d(TAG, "searchForMatch: searching for a match: " + keyword);
+
+    }
+
+    private void hideSoftKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     /**
