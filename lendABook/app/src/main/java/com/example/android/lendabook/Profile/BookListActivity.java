@@ -1,7 +1,6 @@
 package com.example.android.lendabook.Profile;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -13,8 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.lendabook.Add.AddActivity;
@@ -31,34 +28,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-/**
- * Displays books associated with your account.
- * Long pressing a book deletes it.
- * Taping a book lets you edit it.
- * 4 Buttons to filter books by status.
- * Temporary UI for this version
- * Based on KostinCardioBook
- * Made by Kostin
- */
+import static com.example.android.lendabook.Home.HomeFragment.acceptedBooks;
+import static com.example.android.lendabook.Home.HomeFragment.availableBooks;
+import static com.example.android.lendabook.Home.HomeFragment.borrowedBooks;
+import static com.example.android.lendabook.Home.HomeFragment.requestedBooks;
 
 public class BookListActivity extends AppCompatActivity {
-
-    private FirebaseAuth Authentication;
-    private DatabaseReference mRef;
-    private FirebaseUser fbUser;
-    private String books;
-    private String filter = "";
-
-
-    // Array List of Book class filled with values gotten from firebase
-    private ArrayList<Book> bookArrayList = new ArrayList<Book>(); // <<< Display this on the screen
-    // ^^^^^ Display this on the screen^ ^^^^
 
     //temporary display for version 4
     // copied from kostinCardioBook
     private ListView oldEntryList;
     private ArrayAdapter<Book> adapter;
-    private ArrayList<Book> filteredBookArrayList = new ArrayList<>();
     private Button btnAvailable;
     private Button btnRequested;
     private Button btnAccepted;
@@ -74,74 +54,24 @@ public class BookListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_list);
         Toast.makeText(BookListActivity.this, "Long Press on book to delete it",Toast.LENGTH_LONG).show();
         oldEntryList = (ListView) findViewById(R.id.oldEntryList);
-        //initialise firebase
-        Authentication = FirebaseAuth.getInstance();
-        fbUser =  Authentication.getCurrentUser();
-        mRef = FirebaseDatabase.getInstance().getReference().child("Users").child(fbUser.getUid());
 
-
-        // spinner / dropdown
-        Spinner spinner = findViewById(R.id.spinner);
-
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(BookListActivity.this,
-                R.layout.spinner_item, getResources().getStringArray(R.array.book_status));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(myAdapter);
-
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                if (adapterView.getSelectedItem().toString() == "Available") {
-                        filter = "available";
-                        displayBook();
-                    }
-
-                    else if (adapterView.getSelectedItem().toString() == "Requested") {
-                        filter = "requested";
-                        displayBook();
-                    }
-
-                    else if (adapterView.getSelectedItem().toString() == "Accepted") {
-                        filter = "accepted";
-                        displayBook();
-                    }
-
-                    else if (adapterView.getSelectedItem().toString() == "Borrowed") {
-                        filter = "borrowed";
-                        displayBook();
-                    }
-
-                    else if (adapterView.getSelectedItem().toString() == "All") {
-                        filter = "";
-                        displayBook();
-                    }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-/*
         //buttons
         btnAccepted = (Button) findViewById(R.id.btnAccepted);
         btnAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filter = "accepted";
-                displayBook();
+                adapter = new ArrayAdapter<Book>(getApplicationContext(), R.layout.list_item, acceptedBooks);
+                oldEntryList.setAdapter(adapter);
+                Log.d("999", String.valueOf(acceptedBooks.isEmpty()));
             }
         });
         btnAvailable = (Button) findViewById(R.id.btnAvailable);
         btnAvailable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filter = "available";
-                displayBook();
+                adapter = new ArrayAdapter<Book>(getApplicationContext(), R.layout.list_item, availableBooks);
+                oldEntryList.setAdapter(adapter);
+                Log.d("999", String.valueOf(availableBooks.isEmpty()));
             }
         });
 
@@ -149,8 +79,9 @@ public class BookListActivity extends AppCompatActivity {
         btnBorrowed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filter = "borrowed";
-                displayBook();
+                adapter = new ArrayAdapter<Book>(getApplicationContext(), R.layout.list_item, borrowedBooks);
+                oldEntryList.setAdapter(adapter);
+                Log.d("999", String.valueOf(borrowedBooks.isEmpty()));
             }
         });
 
@@ -158,11 +89,12 @@ public class BookListActivity extends AppCompatActivity {
         btnRequested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filter = "requested";
-                displayBook();
+                adapter = new ArrayAdapter<Book>(getApplicationContext(), R.layout.list_item, requestedBooks);
+                oldEntryList.setAdapter(adapter);
+                Log.d("999", String.valueOf(requestedBooks.isEmpty()));
             }
         });
-
+/*
         btnAll = (Button) findViewById(R.id.btnAll);
         btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,8 +103,6 @@ public class BookListActivity extends AppCompatActivity {
                 displayBook();
             }
         });
-
-        */
 
         Log.d("999", String.valueOf(numBooks));
         mRef.child("num_books").addValueEventListener(new ValueEventListener() {
@@ -221,34 +151,9 @@ public class BookListActivity extends AppCompatActivity {
                 intent.putExtra("cameFrom", 2);
                 startActivity(intent);
             }
-        });
-
-        //get book list
-        // gets the total number of books
-        mRef.child("books").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                bookArrayList.clear();
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Book book = new Book( ds.child("isbn").getValue().toString(),
-                            ds.child("author").getValue().toString(),
-                            ds.child("title").getValue().toString(),
-                            ds.child("description").getValue().toString(),
-                            ds.child("status").getValue().toString(),
-                            ds.child("borrower").getValue().toString(),
-                            ds.child("firebaseID").getValue().toString());
-                    bookArrayList.add(book);
-                }
-                displayBook();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
+        });*/
     }
-
+/*
     private void displayBook(){
         // if filter is set
         if (filter != ""){
@@ -270,6 +175,5 @@ public class BookListActivity extends AppCompatActivity {
         }
         oldEntryList.setAdapter(adapter);
     }
-
-
+*/
 }

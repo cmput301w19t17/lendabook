@@ -11,100 +11,86 @@ package com.example.android.lendabook;
 
 public class Book {
     //info about book we will be storing.
-    private String ISBN;
-    private String author;
     private String title;
+    private String isbn;
+    private String author;
     private String description;
-    private String status;
-    private String ownerUsername;
+    private String owner;
     private String borrower;
-    private String firebaseID;
-
+    private String status;
     /**
      * Saves the book information.
      *
-     * @param ISBN
-     * @param author
-     * @param title
-     * @param description
-     * @param status
-     * @param borrower
-     * @param firebaseID
+     * @param title Boot Title
      */
-    public Book(String ISBN, String author, String title, String description, String status, String borrower, String firebaseID) {
-        this.ISBN = ISBN;
-        this.author = author;
+    public Book(String title, String isbn, String author,  String description, String owner, String borrower, String status) {
         this.title = title;
+        this.isbn = isbn;
+        this.author = author;
         this.description = description;
-        this.status = status;
+        this.owner = owner;
         this.borrower = borrower;
-        this.firebaseID = firebaseID;
-
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Title: " + title + "\nAuthor: " + author + "\nISBN: " + ISBN + "\nDescription: " + description +"\nStatus: " + status +"\nBorrower: " + borrower;
-    }
-
-    public String getISBN() {
-        return ISBN;
-    }
-
-    public String getAuthor() {
-        return author;
+        return "Title: " + title + "\nAuthor: " + author + "\nDescription: " + description +"\nBorrower: " + owner;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getBorrower() {
-        return borrower;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public String getStatus() {
-        return status;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
-    public String getOwnerUsername() {
-        return ownerUsername;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public String getAuthor() {
+        return author;
     }
 
     public void setAuthor(String author) {
         this.author = author;
     }
 
-    public void setFirebaseID(String firebaseID) {
-        this.author = firebaseID;
-    }
-
-    public String getFirebaseID() {
-        return firebaseID;
-    }
-
-
-    public void setTitle(String title) {
-        this.title = title;
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setOwnerUsername(String ownerUsername) {
-        this.ownerUsername = ownerUsername;
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getBorrower() {
+        return borrower;
+    }
+
+    public void setBorrower(String borrower) {
+        this.borrower = borrower;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

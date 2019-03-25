@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.example.android.lendabook.Book;
 import com.example.android.lendabook.Profile.BookListActivity;
 import com.example.android.lendabook.R;
+import com.example.android.lendabook.User;
 import com.example.android.lendabook.Utils.BottomNavigationViewHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,12 +56,12 @@ public class AddActivity extends AppCompatActivity {
     private EditText authorBox;
     private EditText statusBox;
 
+    private String userName;
 
-    private int numBooks;
     private int cameFrom; //0 = add buttor, 1 = scan isnb, 2 = edit book
 
     private FirebaseAuth Authentication;
-    private DatabaseReference mRef;
+    private DatabaseReference bookListRef;
     private FirebaseUser fbUser;
 
     private String fireBaseID;
@@ -76,7 +77,6 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         Log.d(TAG, "onCreate: started");
-
         TextView include_picture = findViewById(R.id.include_picture_text_view);
         final ImageView remove_image = findViewById(R.id.remove_image);
         include_picture.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +91,8 @@ public class AddActivity extends AppCompatActivity {
         setupToolbar();
         setUpBottomNavigationView();
 
+
+
         // text fields
         statusBox = (EditText) findViewById(R.id.input_status);
         tilteBox = (EditText) findViewById(R.id.input_book_title);
@@ -101,25 +103,8 @@ public class AddActivity extends AppCompatActivity {
         //fire base
         Authentication = FirebaseAuth.getInstance();
         fbUser =  Authentication.getCurrentUser();
-        mRef = FirebaseDatabase.getInstance().getReference().child("Users").child(fbUser.getUid());
+        bookListRef = FirebaseDatabase.getInstance().getReference().child("Books");
 
-        // gets the total number of books
-        mRef.child("num_books").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    numBooks = dataSnapshot.getValue(int.class);
-                }
-                catch(Exception e){
-                    mRef.child("num_books").setValue("0");
-                    numBooks = 0;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
 
         // figure out where user came from
         Intent intent = getIntent();
@@ -127,7 +112,7 @@ public class AddActivity extends AppCompatActivity {
         Log.d("999", "Came From: " + String.valueOf(cameFrom));
         if (cameFrom == 2){
             fireBaseID = intent.getStringExtra("fireBaseID");
-            DatabaseReference fillRef = mRef.child("books").child(fireBaseID);
+            DatabaseReference fillRef = bookListRef.child("books").child(fireBaseID);
             fillRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -156,56 +141,42 @@ public class AddActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cameFrom == 2) {
-                    String isbnText = isbnBox.getText().toString();
-                    String titleText = tilteBox.getText().toString();
-                    String descText = descBox.getText().toString();
-                    String authorText = authorBox.getText().toString();
-                    String statusText = statusBox.getText().toString();
-                    updateEntry(isbnText, titleText, descText, authorText, statusText, "Mr. Book Borrower", Integer.parseInt(fireBaseID));
-                }else{
-                    String isbnText = isbnBox.getText().toString();
-                    String titleText = tilteBox.getText().toString();
-                    String descText = descBox.getText().toString();
-                    String authorText = authorBox.getText().toString();
-                    String statusText = statusBox.getText().toString();
-                    addEntry(isbnText, titleText, descText, authorText, statusText,
-                            "Mr. Book Borrower", String.valueOf(numBooks));
-                }
-
+                String isbnText = isbnBox.getText().toString();
+                String titleText = tilteBox.getText().toString();
+                String descText = descBox.getText().toString();
+                String authorText = authorBox.getText().toString();
+                String statusText = statusBox.getText().toString();
+                addEntry(titleText, isbnText, authorText, descText, userName, "none", statusText);
             }
         });
     }
 
-    private void updateEntry(String isbnText, String titleText, String descText, String authorText,
-                             String status, String borrower, int FBID) {
-        // creates new book object
-        Book book = new Book(isbnText, authorText, titleText, descText, status, borrower, Integer.toString(FBID));
-        // adds the book to book list on firebase and increase the number of book firebase
-        mRef.child("books").child(book.getFirebaseID()).setValue(book);
-        Intent intent = new Intent(AddActivity.this, BookListActivity.class);
-        startActivity(intent);
-    }
-     /**
+
+
+    /**
      * Adds entry of books.
      *
-     * @param isbnText
-     * @param titleText
-     * @param descText
-     * @param authorText
-     * @param status
-     * @param borrower
-     * @param FBID
+     * @param isbn books' isbn
+
      */
-    private void addEntry(String isbnText, String titleText, String descText, String authorText, String status, String borrower, String FBID) {
-        // creates new book object
-        Book book = new Book(isbnText, authorText, titleText, descText, status, borrower, FBID);
-        // adds the book to book list on firebase and increase the number of book firebase
-        mRef.child("books").child(book.getFirebaseID()).setValue(book);
-        numBooks += 1;
-        mRef.child("num_books").setValue(numBooks);
+    private void addEntry(String title, String isbn, String author,  String description, String owner, String borrower, String status) {
+        /*// creates new book object
+        Book book;
+        if (status.equals("requested")){
+
+            book = new Book(title, isbn, author, description, "none", borrower, status);
+        } else if (status.equals("available")){
+            book = new Book(title, isbn, author, description, owner, borrower, status);
+            bookListRef.child(status).child(isbn).setValue(book);
+        }*/
+        Book book = new Book(title, isbn, author, description, owner, borrower, status);
+        bookListRef.child(isbn+owner).setValue(book);
+
+        // adds the book to book list on firebase
+        /*
         Intent intent = new Intent(AddActivity.this, BookListActivity.class);
         startActivity(intent);
+        */
     }
 
     /**
