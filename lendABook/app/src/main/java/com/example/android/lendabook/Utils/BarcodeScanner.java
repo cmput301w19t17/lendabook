@@ -129,28 +129,32 @@ public class BarcodeScanner extends AppCompatActivity {
     }
 
     private void processResult(List<FirebaseVisionBarcode> firebaseVisionBarcodes) {
+        //no barcode detected
         if (firebaseVisionBarcodes.size() == 0) {
             Toast.makeText(BarcodeScanner.this , "ISBN not detected", Toast.LENGTH_SHORT).show();
             cameraView.start();
         }
+        //goes through scanned barcode
         for(FirebaseVisionBarcode item: firebaseVisionBarcodes)
         {
             DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference().child("Books");
+            // if you are lending a book and the barcode is correct
             if (item.getDisplayValue().equals(desiredISBN) & status.equals("lending")){
-                globalBook.setStatus("borrowed");
-                bookRef.child(desiredISBN).setValue(globalBook);
-                lentBooks.add(globalBook);
-                acceptedBooks.remove(globalBook);
+                globalBook.setStatus("borrowed"); //sets book status
+                bookRef.child(desiredISBN).setValue(globalBook); //updates book on firebase
+                lentBooks.add(globalBook); // adds to local array
+                acceptedBooks.remove(globalBook); // removes from loca larray
                 Intent intent = new Intent (BarcodeScanner.this, BookListActivity.class);
-                startActivity(intent);
+                startActivity(intent); //switches to book list activity
+                //if you are returning a book and barcode is correct
             } else if (item.getDisplayValue().equals(desiredISBN) & status.equals("returning")){
-                globalBook.setStatus("available");
-                globalBook.setBorrower("none");
-                bookRef.child(desiredISBN).setValue(globalBook);
-                availableBooks.add(globalBook);
+                globalBook.setStatus("available"); //sets book status
+                globalBook.setBorrower("none"); // clears borower
+                bookRef.child(desiredISBN).setValue(globalBook); //updates book on firebase
+                availableBooks.add(globalBook); //updates local arrays
                 borrowedBooks.remove(globalBook);
                 Intent intent = new Intent (BarcodeScanner.this, BookListActivity.class);
-                startActivity(intent);
+                startActivity(intent); //switches to book list
             }else
                 Toast.makeText(BarcodeScanner.this , "ISBNs don't match.", Toast.LENGTH_SHORT).show();
 

@@ -31,7 +31,7 @@ public class Book {
      * @param description book description
      * @param owner book owner
      * @param requests list of requests on the book
-     * @param status status of the book
+     * @param status status of the book, list of usernames
      *
      */
     public Book(String title, String isbn, String author, String description, String owner, String borrower, String status, ArrayList<String> requests) {

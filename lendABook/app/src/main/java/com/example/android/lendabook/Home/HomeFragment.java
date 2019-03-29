@@ -33,6 +33,8 @@ import java.util.ArrayList;
 
 /**
  * First page shown when logged in. Not finished for this version. Only contains a temporary button to take you to the list of books you have.
+ * When activity is loaded it downloads books from firebase and sorts them into arrays on the device for further processing. Probably not the
+ * best way to do this.
  */
 
 public class HomeFragment extends Fragment {
@@ -46,7 +48,7 @@ public class HomeFragment extends Fragment {
     public static ArrayList<Book> acceptedBooks; //my book that has been requested and I accepted the request of
     public static ArrayList<Book> lentBooks; //my book that I have given to someone
     public static ArrayList<Book>  myAvailableBooks; //books that i have made available
-    public static String userName;
+    public static String userName; //username of currecnt user
 
     /**
      * Initializes the home fragment.
@@ -86,6 +88,7 @@ public class HomeFragment extends Fragment {
         bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //goes through each book on firebase
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     Book book = new Book( ds.child("title").getValue().toString(),
                             ds.child("isbn").getValue().toString(),
@@ -95,31 +98,24 @@ public class HomeFragment extends Fragment {
                             ds.child("borrower").getValue().toString(),
                             ds.child("status").getValue().toString(),
                             (ArrayList<String>) ds.child("requests").getValue());
-                    Log.d("999", book.getTitle() + "   " + book.getOwner().equals(userName));
+                    //sorts book into local arrays based on their variables
                     if (book.getStatus().equals("available") & !book.getOwner().equals(userName)){
                         availableBooks.add(book);
-                        Log.d("999", "new avaialbale book");
                     }
                     else if (book.getStatus().equals("available") & book.getOwner().equals(userName)){
-                        Log.d("999", "in my available boosk");
                         myAvailableBooks.add(book);
-                        Log.d("999", "new my avaialbale book");
                     }
                     else if (book.getStatus().equals("borrowed") & book.getBorrower().equals(userName)){
                         borrowedBooks.add(book);
-                        Log.d("999", "new borrowed book");
                     }
                     else if (book.getStatus().equals("lent") & book.getOwner().equals(userName)){
                         lentBooks.add(book);
-                        Log.d("999", "new lent book");
                     }
                     else if (book.getStatus().equals("accepted") & book.getOwner().equals(userName)){
                         acceptedBooks.add(book);
-                        Log.d("999", "new accepted book");
                     }
                     else if (book.getStatus().equals("requested")){
                         requestedBooks.add(book);
-                        Log.d("999", "new requested book");
                     }
                 }
             }
@@ -130,6 +126,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void getUserName(){
+        // gets username
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("Users");
         FirebaseAuth Authentication = FirebaseAuth.getInstance();
         FirebaseUser user = Authentication.getCurrentUser();

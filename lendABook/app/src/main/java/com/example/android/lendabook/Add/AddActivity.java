@@ -39,12 +39,9 @@ import java.util.ArrayList;
 
 import static com.example.android.lendabook.Home.HomeFragment.userName;
 /**
- * Created by kostin on 2019-03-01.
  * Class for interaction between scanning and filling out info about book in add book activity.
- */
-
-/**
-    Scan book, get information from google API and then populate the editText in AddBook activity.
+ * Scan book, get information from google API and then populate the editText in AddBook activity.
+ * @author: Peter Kositn
  */
 
 public class AddActivity extends AppCompatActivity {
@@ -157,12 +154,10 @@ public class AddActivity extends AppCompatActivity {
     /**
      * Adds entry of books.
      *
-     * @param isbn books' isbn
+     * parms same as book class
 
      */
     private void addEntry(String title, String isbn, String author,  String description, String owner, String borrower, String status) {
-        Log.d("999", status);
-        Log.d("999", isbn);
         Book book;
         ArrayList<String> requests = new ArrayList<String>();
         requests.add("   ");
