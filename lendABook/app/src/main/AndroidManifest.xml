@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Utils.BarcodeScanner"></activity>
         <activity
             android:name=".Profile.BookListActivity"
             android:label="@string/title_activity_book_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LogIn.LogInActivity">
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
@@ -34,4 +35,5 @@
         <activity android:name=".Profile.ProfileActivity" />
         <activity android:name=".Profile.AccountSettingActivity" />
     </application>
+
 </manifest>

@@ -3,7 +3,7 @@
     <string name="edit_profile_fragment">Edit Profile</string>
     <string name="sign_out_fragment">Sign Out</string>
     <string name="title_activity_book_list">BookListActivity</string>
-    
+
     <string-array name="book_status">
         <item>Available</item>
         <item>Requested</item>

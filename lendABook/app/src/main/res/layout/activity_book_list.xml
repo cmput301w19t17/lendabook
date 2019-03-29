@@ -39,11 +39,19 @@
         android:layout_marginLeft="300dp"
         android:text="borrowed" />
     <Button
-        android:id="@+id/btnAll"
+        android:id="@+id/btnLent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:text="All" />
+    <Button
+        android:id="@+id/btnMyAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="110dp"
+        android:text="My Available" />
+
 
 </android.support.design.widget.CoordinatorLayout>

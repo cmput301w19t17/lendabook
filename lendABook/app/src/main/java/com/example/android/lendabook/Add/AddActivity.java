@@ -35,6 +35,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import static com.example.android.lendabook.Home.HomeFragment.userName;
 /**
  * Created by kostin on 2019-03-01.
  * Class for interaction between scanning and filling out info about book in add book activity.
@@ -55,8 +58,6 @@ public class AddActivity extends AppCompatActivity {
     private  EditText descBox;
     private EditText authorBox;
     private EditText statusBox;
-
-    private String userName;
 
     private int cameFrom; //0 = add buttor, 1 = scan isnb, 2 = edit book
 
@@ -160,23 +161,18 @@ public class AddActivity extends AppCompatActivity {
 
      */
     private void addEntry(String title, String isbn, String author,  String description, String owner, String borrower, String status) {
-        /*// creates new book object
+        Log.d("999", status);
+        Log.d("999", isbn);
         Book book;
-        if (status.equals("requested")){
-
-            book = new Book(title, isbn, author, description, "none", borrower, status);
-        } else if (status.equals("available")){
-            book = new Book(title, isbn, author, description, owner, borrower, status);
-            bookListRef.child(status).child(isbn).setValue(book);
-        }*/
-        Book book = new Book(title, isbn, author, description, owner, borrower, status);
-        bookListRef.child(isbn+owner).setValue(book);
-
-        // adds the book to book list on firebase
-        /*
-        Intent intent = new Intent(AddActivity.this, BookListActivity.class);
-        startActivity(intent);
-        */
+        ArrayList<String> requests = new ArrayList<String>();
+        requests.add("   ");
+        if (status.equals("requested")) {
+            requests.add(userName);
+            book = new Book(title, isbn, author, description, "none", "none", status, requests);
+        }
+        else
+            book = new Book(title, isbn, author, description, userName, "none", status, requests);
+        bookListRef.child(isbn).setValue(book);
     }
 
     /**
@@ -232,7 +228,7 @@ public class AddActivity extends AppCompatActivity {
 
         startActivityForResult(chooserIntent, RESULT_LOAD_IMAGE);
     }
-    
+
      /**
      * finishes everything
      *

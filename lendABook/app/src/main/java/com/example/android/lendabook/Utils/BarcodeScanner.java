@@ -1,25 +1,22 @@
-package com.example.android.lendabook.Home;
+package com.example.android.lendabook.Utils;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.android.lendabook.Add.AddActivity;
+import com.example.android.lendabook.Book;
+import com.example.android.lendabook.Profile.BookListActivity;
 import com.example.android.lendabook.R;
-import com.example.android.lendabook.Utils.fetchData;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
@@ -34,28 +31,21 @@ import com.wonderkiln.camerakit.CameraView;
 
 import java.util.List;
 
-import dmax.dialog.SpotsDialog;
+import static com.example.android.lendabook.Home.HomeFragment.acceptedBooks;
+import static com.example.android.lendabook.Home.HomeFragment.availableBooks;
+import static com.example.android.lendabook.Home.HomeFragment.borrowedBooks;
+import static com.example.android.lendabook.Home.HomeFragment.lentBooks;
+import static com.example.android.lendabook.Profile.BookListActivity.globalBook;
 
 /**
- * Created by kostin on 2019-02-27.
- * Class for the bottom navigation bar.
+ * Copied from camerframent used for handing off books to borrower/owner.
  */
 
-/**
- * Gets an image from the camera using CameraKit and scans it for an ISBN using Firebase ML Vision
- * Based on tutorial from https://www.youtube.com/watch?v=NSq0nuc6-AI
- * Made by Kostin
- */
-
-public class CameraFragment extends Fragment {
-
-    private static final String TAG = "CameraFragment";
+public class BarcodeScanner extends AppCompatActivity {
     CameraView cameraView;
-    Button btnScanISBN;
-    AlertDialog waitingDialog;
-
-    public static FragmentActivity cameraActivity;
-
+    Button btnScan;
+    String desiredISBN;
+    String status;
 
     @Override
     public void onResume() {
@@ -68,32 +58,18 @@ public class CameraFragment extends Fragment {
         super.onPause();
         cameraView.stop();
     }
-    
-     /**
-     * Initializes camera fragment for scanning
-     *
-     * @param inflater
-     * @param containter
-     * @param savedInstanceState
-     */
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_camera, container, false);
-
-        cameraView = (CameraView)view.findViewById(R.id.cameraview);
-        btnScanISBN = (Button)view.findViewById(R.id.btn_scanISBN);
-        waitingDialog = new SpotsDialog.Builder()
-                // should be (this)
-                .setContext(view.getContext())
-                .setMessage("Please wait")
-                .setCancelable(false)
-                .build();
-
-        btnScanISBN.setOnClickListener(new View.OnClickListener() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_barcode_scanner);
+        Intent intent = getIntent();
+        desiredISBN = intent.getExtras().getString("desiredISBN");
+        status = intent.getExtras().getString("status");
+        cameraView = (CameraView) findViewById(R.id.cameraview);
+        btnScan = (Button)findViewById(R.id.btn_scanreturn);
+        btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                waitingDialog.show();
                 cameraView.start();
                 cameraView.captureImage();
             }
@@ -125,15 +101,8 @@ public class CameraFragment extends Fragment {
 
             }
         });
-
-        return view;
     }
-    
-     /**
-     * Detects the scanner working
-     *
-     * @param bitmap
-     */
+
     private void runDetector(Bitmap bitmap) {
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
         FirebaseVisionBarcodeDetectorOptions options = new FirebaseVisionBarcodeDetectorOptions.Builder()
@@ -153,31 +122,38 @@ public class CameraFragment extends Fragment {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext() , e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BarcodeScanner.this , e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
     }
 
     private void processResult(List<FirebaseVisionBarcode> firebaseVisionBarcodes) {
-        Log.d("999:", Integer.toString(firebaseVisionBarcodes.size()));
-        // firebaseVisionBarcodes is a list of the scanned codes
         if (firebaseVisionBarcodes.size() == 0) {
-            waitingDialog.hide();
-            Toast.makeText(getContext() , "ISBN not detected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BarcodeScanner.this , "ISBN not detected", Toast.LENGTH_SHORT).show();
             cameraView.start();
         }
-
         for(FirebaseVisionBarcode item: firebaseVisionBarcodes)
         {
-            //goes to add activity with ISBN
-            cameraActivity =  getActivity();
+            DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference().child("Books");
+            if (item.getDisplayValue().equals(desiredISBN) & status.equals("lending")){
+                globalBook.setStatus("borrowed");
+                bookRef.child(desiredISBN).setValue(globalBook);
+                lentBooks.add(globalBook);
+                acceptedBooks.remove(globalBook);
+                Intent intent = new Intent (BarcodeScanner.this, BookListActivity.class);
+                startActivity(intent);
+            } else if (item.getDisplayValue().equals(desiredISBN) & status.equals("returning")){
+                globalBook.setStatus("available");
+                globalBook.setBorrower("none");
+                bookRef.child(desiredISBN).setValue(globalBook);
+                availableBooks.add(globalBook);
+                borrowedBooks.remove(globalBook);
+                Intent intent = new Intent (BarcodeScanner.this, BookListActivity.class);
+                startActivity(intent);
+            }else
+                Toast.makeText(BarcodeScanner.this , "ISBNs don't match.", Toast.LENGTH_SHORT).show();
 
-
-            fetchData booksApi = new fetchData();
-            booksApi.execute(item.getDisplayValue());
-            int value_type = item.getValueType();
         }
-
     }
 }

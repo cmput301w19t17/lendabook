@@ -5,6 +5,8 @@ package com.example.android.lendabook;
  * Class for saving/storying book information.
  */
 
+import java.util.ArrayList;
+
 /**
  * Class to store and initalize and object of a book
  */
@@ -18,12 +20,21 @@ public class Book {
     private String owner;
     private String borrower;
     private String status;
+    private ArrayList<String> requests;
     /**
      * Saves the book information.
      *
-     * @param title Boot Title
+     * @param title BooK Title
+     * @param isbn book isbn
+     * @param author author of book
+     * @param borrower book borrower
+     * @param description book description
+     * @param owner book owner
+     * @param requests list of requests on the book
+     * @param status status of the book
+     *
      */
-    public Book(String title, String isbn, String author,  String description, String owner, String borrower, String status) {
+    public Book(String title, String isbn, String author, String description, String owner, String borrower, String status, ArrayList<String> requests) {
         this.title = title;
         this.isbn = isbn;
         this.author = author;
@@ -31,6 +42,7 @@ public class Book {
         this.owner = owner;
         this.borrower = borrower;
         this.status = status;
+        this.requests = requests;
     }
 
     @Override
@@ -93,4 +105,13 @@ public class Book {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public ArrayList<String> getRequests(){return requests;}
+
+    public void addRequest(String name){
+        requests.add(name);
+    }
+
+    public void clearRequests() {requests.clear();}
+
 }
