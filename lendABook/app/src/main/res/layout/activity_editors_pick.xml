@@ -34,6 +34,7 @@
 
         <!-- Book 1 -->
 <RelativeLayout
+    android:id="@+id/relLayoutbook1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -83,10 +84,11 @@
 
 
 </RelativeLayout>
-        
+
         <!-- book 2 -->
 
     <RelativeLayout
+        android:id="@+id/relLayoutbook2"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,7 +98,7 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="100dp"
-            android:src="@drawable/recommendbook"
+            android:src="@drawable/recommendbook2"
             android:id="@+id/book_img2"
             />
         <TextView
@@ -107,7 +109,7 @@
             android:layout_marginLeft="10dp"
             android:textSize="20dp"
             android:layout_toRightOf="@id/book_img2"
-            android:text="Sapiens: A Brief History of Humankind"/>
+            android:text="THE HARD THING ABOUT HARD THINGS"/>
 
 
         <TextView
@@ -118,7 +120,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="-24dp"
             android:layout_toRightOf="@+id/book_img2"
-            android:text="By Yuval Noah Harari"
+            android:text="By Ben Horowitz"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15dp" />
 
@@ -130,7 +132,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="-27dp"
             android:layout_toRightOf="@+id/book_img2"
-            android:text="Why we love this"
             android:textColor="@color/colorPrimary"
             android:textSize="15dp" />
 
@@ -141,6 +142,7 @@
         <!-- book 3 -->
 
         <RelativeLayout
+            android:id="@+id/relLayoutbook3"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -150,7 +152,7 @@
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="100dp"
-                android:src="@drawable/recommendbook"
+                android:src="@drawable/recommendbook3"
                 android:id="@+id/book_img3"
                 />
             <TextView
@@ -161,7 +163,7 @@
                 android:layout_marginLeft="10dp"
                 android:textSize="20dp"
                 android:layout_toRightOf="@id/book_img3"
-                android:text="Sapiens: A Brief History of Humankind"/>
+                android:text="The Prize: The Epic Quest for Oil, Money, and Power"/>
 
 
             <TextView
@@ -172,7 +174,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="-24dp"
                 android:layout_toRightOf="@+id/book_img3"
-                android:text="By Yuval Noah Harari"
+                android:text="By Daniel Yergin"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15dp" />
 
@@ -184,7 +186,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="-27dp"
                 android:layout_toRightOf="@+id/book_img3"
-                android:text="Why we love this"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15dp" />
 
