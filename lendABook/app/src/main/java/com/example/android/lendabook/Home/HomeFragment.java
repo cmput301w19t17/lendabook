@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.android.lendabook.Book;
 import com.example.android.lendabook.Profile.BookListActivity;
 import com.example.android.lendabook.R;
+import com.example.android.lendabook.EditorsPick;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +38,7 @@ import java.util.ArrayList;
  */
 
 public class HomeFragment extends Fragment {
-    Button btnBookList;
+    Button btnBookList, btnEditorsPick;
     private static final String TAG = "HomeFragment";
 
     //List of all books on FireBase
@@ -72,6 +72,20 @@ public class HomeFragment extends Fragment {
         });
         getUserName();
         getAllBooks();
+
+
+        // if editors pick btn is clicked
+        btnEditorsPick = (Button) view.findViewById(R.id.btn_editors_pick);
+        btnEditorsPick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "The editor's pick has been clicked.");
+                Intent intent = new Intent(getContext(), EditorsPick.class);
+                startActivity(intent);
+            }
+        });
+
+
         return view;
     }
 

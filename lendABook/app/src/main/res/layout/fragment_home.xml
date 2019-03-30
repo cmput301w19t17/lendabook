@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/backgroundhome2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,6 +27,23 @@
         android:textStyle="bold"
 
         />
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/btn_editors_pick"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="25"
+            android:background="@drawable/booklistbackground"
+            android:text="Editor's pick"
+            android:textColor="#000"
+            android:textSize="25dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+
+            />
 
     </LinearLayout>
 </RelativeLayout>
