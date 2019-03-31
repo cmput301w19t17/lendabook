@@ -31,4 +31,8 @@
     <include layout = "@layout/layout_bottom_navigation" />
 
 
+<<<<<<< HEAD
 </RelativeLayout>
+=======
+</RelativeLayout>
+>>>>>>> dac08d791f17053f37c87ef6c7196e5bc3d365f5

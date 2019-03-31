@@ -3,13 +3,18 @@ package com.example.android.lendabook.Search;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.support.annotation.NonNull;
+=======
+import android.renderscript.ScriptGroup;
+>>>>>>> dac08d791f17053f37c87ef6c7196e5bc3d365f5
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+<<<<<<< HEAD
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -18,6 +23,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+=======
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ListView;
+>>>>>>> dac08d791f17053f37c87ef6c7196e5bc3d365f5
 
 import com.example.android.lendabook.Book;
 import com.example.android.lendabook.LogIn.RegisterActivity;
@@ -74,12 +84,21 @@ public class SearchActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
 
+    // widgets
+    private EditText mSearchParam;
+    private ListView mListView;
+
+    // vars
+//    private List<SearchResults> mSearchResults;
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         Log.d(TAG, "onCreate: started");
 
+<<<<<<< HEAD
         searchText = (EditText) findViewById(R.id.search);
         searchButton = (Button) findViewById(R.id.searchBtn);
 
@@ -140,13 +159,23 @@ public class SearchActivity extends AppCompatActivity {
      *
      * @param keyword
      */
+=======
+        hideSoftKeyboard();
+        setUpBottomNavigationView();
+    }
+
+>>>>>>> dac08d791f17053f37c87ef6c7196e5bc3d365f5
     private void searchForMatch(String keyword) {
         // TODO: searches for a match..
         Log.d(TAG, "searchForMatch: searching for a match: " + keyword);
 
     }
+<<<<<<< HEAD
     
     //hideSoftKeyboard function for inputs.
+=======
+
+>>>>>>> dac08d791f17053f37c87ef6c7196e5bc3d365f5
     private void hideSoftKeyboard() {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);

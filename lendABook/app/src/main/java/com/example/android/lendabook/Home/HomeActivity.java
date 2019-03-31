@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment());  // index 0
         adapter.addFragment(new CameraFragment());    // index 1
-        adapter.addFragment(new AdsFragment());     // index 2
+        // adapter.addFragment(new AdsFragment());     // index 2
         ViewPager viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(adapter);
 
@@ -68,7 +68,9 @@ public class HomeActivity extends AppCompatActivity {
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_logo);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_isbn);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_ads);
+        // removed ads from home page
+        // if needed, it'll be added to profile
+        // tabLayout.getTabAt(2).setIcon(R.drawable.ic_ads);
 
     }
 

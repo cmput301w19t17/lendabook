@@ -8,6 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+<<<<<<< HEAD
 
         <RelativeLayout
             android:id="@+id/relLayout1"
@@ -17,10 +18,31 @@
             <include layout="@layout/snippet_searchbar" />
         </RelativeLayout>
 
+=======
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relLayout1">
+
+            <include layout = "@layout/snippet_searchbar" />
+        </RelativeLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listView"
+            android:layout_below="@id/relLayout1"
+
+            >
+
+        </ListView>
+
+>>>>>>> dac08d791f17053f37c87ef6c7196e5bc3d365f5
     </RelativeLayout>
 
     <include layout = "@layout/layout_bottom_navigation" />
 
+<<<<<<< HEAD
     <ListView
         android:id="@+id/searchList"
         android:layout_width="match_parent"
@@ -32,3 +54,7 @@
 
 
 </RelativeLayout>
+=======
+
+</RelativeLayout>
+>>>>>>> dac08d791f17053f37c87ef6c7196e5bc3d365f5

@@ -144,6 +144,7 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
+<<<<<<< HEAD
                         <ImageView
                             android:id="@+id/selected_image"
                             android:layout_width="50dp"
@@ -157,6 +158,20 @@
                     </RelativeLayout>
 
 
+=======
+                    <ImageView
+                        android:id="@+id/selected_image"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        />
+                    <ImageView
+                        android:id="@+id/remove_image"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@android:drawable/ic_delete"/>
+                    </RelativeLayout>
+
+>>>>>>> dac08d791f17053f37c87ef6c7196e5bc3d365f5
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/btn_register"
                         android:layout_width="match_parent"

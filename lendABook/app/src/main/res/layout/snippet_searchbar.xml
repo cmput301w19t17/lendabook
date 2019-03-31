@@ -19,6 +19,7 @@
 
                 <EditText
                     android:id="@+id/search"
+<<<<<<< HEAD
                     android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -49,6 +50,20 @@
                     android:layout_toEndOf="@+id/search"
                     android:layout_toRightOf="@+id/search"
                     android:text="Search" />
+=======
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="Search by Book Title or Author"
+                    android:textColorHint="@color/grey"
+                    android:textSize = "20sp"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    />
+
+>>>>>>> dac08d791f17053f37c87ef6c7196e5bc3d365f5
 
 
             </RelativeLayout>

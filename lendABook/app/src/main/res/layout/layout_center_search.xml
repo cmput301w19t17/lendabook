@@ -1,0 +1,35 @@
+<merge xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <!-- ******* TOP TOOLBAR ******* -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/relLayout1">
+
+            <include layout="@layout/snippet_top_searchbar"></include>
+
+        </RelativeLayout>
+
+        <!-- ******* MIDDLE SECTION ******* -->
+        <EditText
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_below="@id/relLayout1"
+            android:hint="`````````````````````````````````````````````````````````````"
+            android:textColorHint="@color/grey"
+            android:drawableRight="@drawable/ic_search"
+            />
+       
+
+    </RelativeLayout>
+
+</merge>
+
