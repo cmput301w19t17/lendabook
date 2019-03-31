@@ -33,25 +33,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
-<<<<<<< HEAD
 import java.util.ArrayList;
 
-=======
->>>>>>> 4f0a7bb901375d86671fc8104f14be96383d7165
 /**
  * Created by belachew on 2019-03-05.
  * Class for the Search in the bottom navigation bar of our app.
  */
 
 /**
-<<<<<<< HEAD
  * This class is for the Search activity where you can search a book by Author or Book name and receive:
  * - book description, book owner and current book status.
  * The class does a query for the book and author and if one of the other matches, it inputs it in our results list with the above information.
-=======
  * This class is for the Search activity.
->>>>>>> 4f0a7bb901375d86671fc8104f14be96383d7165
  */
 
 public class SearchActivity extends AppCompatActivity {
@@ -109,7 +102,6 @@ public class SearchActivity extends AppCompatActivity {
 
         setUpBottomNavigationView();
     }
-<<<<<<< HEAD
 
 
     /**
@@ -141,7 +133,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-=======
+    }
     
     /**
      * The search bar searches for matches based on a keyword.
@@ -152,7 +144,6 @@ public class SearchActivity extends AppCompatActivity {
         // TODO: searches for a match..
         Log.d(TAG, "searchForMatch: searching for a match: " + keyword);
 
->>>>>>> 4f0a7bb901375d86671fc8104f14be96383d7165
     }
     
     //hideSoftKeyboard function for inputs.
