@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,10 @@ import com.example.android.lendabook.LogIn.RegisterActivity;
 import com.example.android.lendabook.LogIn.UserInformation;
 import com.example.android.lendabook.R;
 import com.example.android.lendabook.Utils.UniversalImageLoader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,6 +57,7 @@ public class EditProfileFragment extends Fragment {
     private EditText description;
     private EditText email;
     private EditText phone_number;
+    private EditText current_password;
     private Button save_userInfo;
 
     //define Strings we are going to be saving to.
@@ -61,6 +67,7 @@ public class EditProfileFragment extends Fragment {
     private String user_phone_number;
     private String user_username;
     private String user_email;
+    private String user_password;
 
     //for firebase
     private FirebaseAuth Authentication;
@@ -87,6 +94,7 @@ public class EditProfileFragment extends Fragment {
         website = view.findViewById(R.id.website);
         description = view.findViewById(R.id.description);
         email = view.findViewById(R.id.email);
+        current_password = view.findViewById(R.id.password_user);
 
         //for firebase.
         mRef = FirebaseDatabase.getInstance().getReference();
@@ -162,20 +170,42 @@ public class EditProfileFragment extends Fragment {
     /**
      * Obtains new information from the editText and then saves it in the database under the user uid
      */
-    private void SaveNewInfo(){
+    private void SaveNewInfo() {
         //obtains information from editText's
         user_full_name = name.getText().toString();
         user_description = description.getText().toString();
         user_phone_number = phone_number.getText().toString();
         user_website = website.getText().toString();
-        user_email = email.getText().toString();
+        //user_email = email.getText().toString();
+        user_password = current_password.getText().toString();
+
+        //obtained from: https://stackoverflow.com/questions/49357150/how-to-update-email-from-firebase-in-android
+        /*FirebaseUser user = Authentication.getInstance().getCurrentUser();
+            AuthCredential credential = EmailAuthProvider
+                .getCredential(user_email, user_password);
+            user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getContext(), "Re-Authentication", Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = Authentication.getInstance().getCurrentUser();
+                        //user_email = email.getText().toString();
+                        //user.updateEmail(user_email)
+                          //      .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            //        @Override
+                              //      public void onComplete(@NonNull Task<Void> task) {
+                                //        if (task.isSuccessful()) {
+                                  //          Toast.makeText(getContext(), "Updateddd", Toast.LENGTH_SHORT).show();
+                                    //    }
+                                    //}
+                               // });
+                    }
+                });*/
+        FirebaseUser user = Authentication.getInstance().getCurrentUser();
 
         //creates a new bundle of user information
         UserInformation userInfo = new UserInformation(user_username, user_full_name, user_website, user_description, user_phone_number);
 
-        //authenticates user and saves information
-        FirebaseUser user = Authentication.getCurrentUser();
-        user.updateEmail(user_email);
         mRef.child(user.getUid()).setValue(userInfo);
 
         Toast.makeText(getContext(), "Information saved!",Toast.LENGTH_SHORT).show();

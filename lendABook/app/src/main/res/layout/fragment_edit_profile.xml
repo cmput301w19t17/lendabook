@@ -22,7 +22,10 @@
         android:layout_height="match_parent"
         android:layout_below = "@id/relLayout1">
 
-        <include layout = "@layout/snippet_center_editprofile" />
+        <include
+            layout="@layout/snippet_center_editprofile"
+            android:layout_width="104dp"
+            android:layout_height="55dp" />
 
     </RelativeLayout>
     </RelativeLayout>

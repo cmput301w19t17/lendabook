@@ -83,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         input_password = (EditText) findViewById(R.id.input_password);
         register = (Button) findViewById(R.id.btn_register);
 
+
         //OnClickListener for the register button. This will authenticate a new account as well as adding info about the account
         //to the real time database.
         register.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +105,8 @@ public class RegisterActivity extends AppCompatActivity {
         String email = input_email.getText().toString();
         String full_name = input_full_name.getText().toString();
         String password = input_password.getText().toString();
+
+        RegisterActivity.username_taken = false;
 
         // Checks if field for username, email or password is empty; if yes, alert user and stop register process
         if(TextUtils.isEmpty(username)){
@@ -172,6 +175,6 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     });
         }
-        RegisterActivity.username_taken = false;
+        username_taken = false;
     }
 }
