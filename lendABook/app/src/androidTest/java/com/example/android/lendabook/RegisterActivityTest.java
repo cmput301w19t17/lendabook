@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.widget.EditText;
 
+import com.example.android.lendabook.Home.HomeActivity;
 import com.example.android.lendabook.LogIn.LogInActivity;
 import com.example.android.lendabook.LogIn.RegisterActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,23 +63,13 @@ public class RegisterActivityTest extends ActivityTestRule<RegisterActivity> {
     //Test new username
     @Test
     public void Register() throws Exception{
-        solo.enterText((EditText) solo.getView(R.id.input_username), "hello21134");
-        solo.enterText((EditText) solo.getView(R.id.input_email), "example9@gmail.com");
+        solo.enterText((EditText) solo.getView(R.id.input_username), "hello25124");
+        solo.enterText((EditText) solo.getView(R.id.input_email), "example21@gmail.com");
         solo.enterText((EditText) solo.getView(R.id.input_full_name), "aasdf");
         solo.enterText((EditText) solo.getView(R.id.input_password), "swimming");
         solo.clickOnText("Register :)");
         assertTrue(solo.waitForText("Registration Successful"));
-        solo.assertCurrentActivity("Wrong Activity", LogInActivity.class);
-        Authentication = FirebaseAuth.getInstance();
-
-        mRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser user = Authentication.getCurrentUser();
-
-
-
-
-
-
+        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
 
 
     }

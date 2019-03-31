@@ -55,4 +55,6 @@ public class HomeActivityTest extends ActivityTestRule<HomeActivity> {
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
     }
+
+
 }

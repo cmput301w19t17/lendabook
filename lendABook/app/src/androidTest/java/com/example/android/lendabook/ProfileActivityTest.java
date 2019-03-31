@@ -3,7 +3,10 @@ package com.example.android.lendabook;
 import android.app.Activity;
 import android.provider.ContactsContract;
 import android.support.test.rule.ActivityTestRule;
+import android.view.View;
+import android.widget.ImageButton;
 
+import com.example.android.lendabook.Profile.AccountSettingActivity;
 import com.example.android.lendabook.Profile.ProfileActivity;
 import com.robotium.solo.Solo;
 
@@ -37,6 +40,8 @@ public class ProfileActivityTest extends ActivityTestRule<ProfileActivity> {
     public void start() throws Exception{
         Activity activity = rule.getActivity();
     }
+
+
 
 
     @After

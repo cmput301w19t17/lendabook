@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.widget.EditText;
 
+import com.example.android.lendabook.Add.AddActivity;
 import com.example.android.lendabook.Home.HomeActivity;
 import com.example.android.lendabook.LogIn.LogInActivity;
+import com.example.android.lendabook.Profile.ProfileActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -39,15 +41,19 @@ public class LogInActivityTest extends ActivityTestRule<LogInActivity> {
     public void start() throws Exception{
         Activity activity = rule.getActivity();
     }
+
+
     //Log In with correct inputs
     @Test
     public void logIn() throws Exception{
-        solo.enterText((EditText) solo.getView(R.id.input_email), "example1@gmail.com");
+        solo.enterText((EditText) solo.getView(R.id.input_email), "example12345@gmail.com");
         solo.enterText((EditText) solo.getView(R.id.input_password), "swimming");
         solo.clickOnText("Log In");
         solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
 
     }
+
+
 
     //Log In with incorrect Inputs
     @Test
@@ -73,9 +79,12 @@ public class LogInActivityTest extends ActivityTestRule<LogInActivity> {
         assertTrue(solo.waitForText("Password not entered"));
     }
 
+
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
     }
+
+
 
 }
