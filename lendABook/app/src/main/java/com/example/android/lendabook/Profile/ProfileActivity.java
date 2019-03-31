@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,6 +20,10 @@ import android.widget.TextView;
 import com.example.android.lendabook.R;
 import com.example.android.lendabook.Utils.BottomNavigationViewHelper;
 import com.example.android.lendabook.Utils.UniversalImageLoader;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +50,8 @@ public class ProfileActivity extends AppCompatActivity {
     //Sets context
     private Context mContext = ProfileActivity.this;
     private static final int ACTIVITY_NUM = 4;
+    private static final int REQUEST_CODE = 1;
+
 
     //for firebase
     private FirebaseAuth Authentication;
@@ -75,6 +82,36 @@ public class ProfileActivity extends AppCompatActivity {
         setupActivityWidget();
         setProfileImageAndFullName();
         setupUserInformation();
+
+        Button getLocation = (Button) findViewById(R.id.geolocation);
+        getLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                com.google.android.gms.location.places.ui.PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+
+                try {
+                    startActivityForResult(builder.build(ProfileActivity.this), REQUEST_CODE);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                String address = String.format("Place: %s", place.getAddress());
+
+                Button getLocation = (Button) findViewById(R.id.geolocation);
+                getLocation.setText(address);
+            }
+        }
     }
 
     /**

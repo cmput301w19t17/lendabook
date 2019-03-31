@@ -106,6 +106,12 @@
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
+                <Button
+                    android:id="@+id/geolocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="location"/>
+
                 <TextView
                     android:id="@+id/AboutMe"
                     android:layout_width="377dp"
