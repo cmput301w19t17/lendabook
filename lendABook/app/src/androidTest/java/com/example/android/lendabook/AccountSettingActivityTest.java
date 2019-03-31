@@ -36,6 +36,18 @@ public class AccountSettingActivityTest extends ActivityTestRule<AccountSettingA
     public void start() throws Exception{
         Activity activity = rule.getActivity();
     }
+    @Test
+    public void editProfile() throws Exception{
+        solo.clickOnText("Edit Profile");
+        solo.clearEditText((EditText) solo.getView(R.id.name) );
+        solo.enterText((EditText) solo.getView(R.id.name), "Chris Baker");
+        solo.clearEditText((EditText) solo.getView(R.id.website) );
+        solo.enterText((EditText) solo.getView(R.id.website), "www.google.com");
+        solo.clearEditText((EditText) solo.getView(R.id.description) );
+        solo.enterText((EditText) solo.getView(R.id.description), "My name is Chris" );
+        solo.clickOnText("Save");
+        solo.waitForText("Information saved!");
+    }
 
 
     @After
