@@ -14,13 +14,25 @@ import com.example.android.lendabook.Profile.BookListActivity;
 import com.example.android.lendabook.R;
 
 /**
+ * Created by belachew on 2019-02-27.
+ * Class for the home fragment that you see when you first log in.
+ */
+
+/**
  * First page shown when logged in. Not finished for this version. Only contains a temporary button to take you to the list of books you have.
  */
 
 public class HomeFragment extends Fragment {
     Button btnBookList;
     private static final String TAG = "HomeFragment";
-
+    
+    /**
+     * Initializes the home fragment.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

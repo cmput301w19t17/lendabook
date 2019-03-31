@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.lendabook.LogIn.RegisterActivity;
 import com.example.android.lendabook.R;
 import com.example.android.lendabook.Utils.BottomNavigationViewHelper;
 import com.example.android.lendabook.Utils.UniversalImageLoader;
@@ -88,6 +90,9 @@ public class ProfileActivity extends AppCompatActivity {
         //Set the name under the picture to the users full name
         FirebaseUser user = Authentication.getCurrentUser();
 
+        //user verifyUser.user to do another step of verification for the current user.
+        Singleton verifyUser = Singleton.getInstance();
+
         //Firebase query for the fullName (to make it always stay under the picture)
         mRef = FirebaseDatabase.getInstance().getReference("Users");
         Query query = mRef.child(user.getUid());
@@ -125,6 +130,9 @@ public class ProfileActivity extends AppCompatActivity {
         ImageView profileMenu = findViewById(R.id.profile_menu);
         FirebaseUser user = Authentication.getCurrentUser();
 
+        //user verifyUser.user to do another step of verification for the current user.
+        Singleton verifyUser = Singleton.getInstance();
+
         //Firebase query for the username (to make it always stay on the top toolbar)
         mRef = FirebaseDatabase.getInstance().getReference("Users");
         Query query = mRef.child(user.getUid());
@@ -161,6 +169,9 @@ public class ProfileActivity extends AppCompatActivity {
         TextView email = findViewById(R.id.email);
         //defines current user
         FirebaseUser user = Authentication.getInstance().getCurrentUser();
+
+        //user verifyUser.user to do another step of verification for the current user.
+        Singleton verifyUser = Singleton.getInstance();
 
         //Set the email in contact information to the email of the account
         String user_email = user.getEmail();
