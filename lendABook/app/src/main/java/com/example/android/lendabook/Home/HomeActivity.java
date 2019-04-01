@@ -1,92 +1,164 @@
 package com.example.android.lendabook.Home;
 
-import android.content.Context;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.android.lendabook.Book;
+import com.example.android.lendabook.Profile.BookListActivity;
 import com.example.android.lendabook.R;
-import com.example.android.lendabook.Utils.BottomNavigationViewHelper;
-import com.example.android.lendabook.Utils.SectionsPageAdapter;
-import com.example.android.lendabook.Utils.UniversalImageLoader;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.example.android.lendabook.EditorsPick;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by belachew on 2019-02-27.
- * Class for the Home Activity
+ * Class for the home fragment that you see when you first log in.
  */
 
 /**
- * The class is for creation of the home layout.
+ * First page shown when logged in. Not finished for this version. Only contains a temporary button to take you to the list of books you have.
+ * When activity is loaded it downloads books from firebase and sorts them into arrays on the device for further processing. Probably not the
+ * best way to do this.
  */
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeFragment extends Fragment {
+    Button btnBookList, btnEditorsPick;
+    private static final String TAG = "HomeFragment";
 
-    private static final String TAG = "HomeActivity";
-    private Context mContext = HomeActivity.this;
-    private static final int ACTIVITY_NUM = 0;
+    //List of all books on FireBase
+    public static ArrayList<Book> availableBooks; //books that I can borrow
+    public static ArrayList<Book> borrowedBooks; //books that I have borrowed
+    public static ArrayList<Book> requestedBooks; //books that I have requested
+    public static ArrayList<Book> acceptedBooks; //my book that has been requested and I accepted the request of
+    public static ArrayList<Book> lentBooks; //my book that I have given to someone
+    public static ArrayList<Book>  myAvailableBooks; //books that i have made available
+    public static String userName; //username of currecnt user
 
     /**
-     * Creates home layout.
+     * Initializes the home fragment.
      *
+     * @param inflater
+     * @param container
      * @param savedInstanceState
      */
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        Log.d(TAG, "onCreate: starting");
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        btnBookList = (Button) view.findViewById(R.id.btn_bklist);
+        btnBookList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("999", "updating books, username = "+ userName);
+                Intent intent = new Intent(getContext(), BookListActivity.class);
+                startActivity(intent);
+            }
+        });
+        getUserName();
+        getAllBooks();
 
-        // initialize default image
-        initImageLoader();
 
-        setUpBottomNavigationView();
-        setupViewPager();
+        // if editors pick btn is clicked
+        btnEditorsPick = (Button) view.findViewById(R.id.btn_editors_pick);
+        btnEditorsPick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "The editor's pick has been clicked.");
+                Intent intent = new Intent(getContext(), EditorsPick.class);
+                startActivity(intent);
+            }
+        });
 
 
+        return view;
     }
 
+    //gets all books from FireBase
+    private void getAllBooks() {
+        DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference().child("Books");
+        availableBooks = new ArrayList<Book>();
+        borrowedBooks = new ArrayList<Book>();
+        requestedBooks = new ArrayList<Book>();
+        acceptedBooks = new ArrayList<Book>();
+        lentBooks = new ArrayList<Book>();
+        myAvailableBooks = new ArrayList<Book>();
 
-    /**
-     * Responsible for adding the 3 tabs: Camera, Home and Ads
-    * */
-    private void setupViewPager() {
-        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HomeFragment());  // index 0
-        adapter.addFragment(new CameraFragment());    // index 1
-        adapter.addFragment(new AdsFragment());     // index 2
-        ViewPager viewPager = (ViewPager) findViewById(R.id.container);
-        viewPager.setAdapter(adapter);
+        bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //goes through each book on firebase
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_logo);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_isbn);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_ads);
-
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    try{
+                        Book book = new Book( ds.child("title").getValue().toString(),
+                                ds.child("isbn").getValue().toString(),
+                                ds.child("author").getValue().toString(),
+                                ds.child("description").getValue().toString(),
+                                ds.child("owner").getValue().toString(),
+                                ds.child("borrower").getValue().toString(),
+                                ds.child("status").getValue().toString(),
+                                (ArrayList<String>) ds.child("requests").getValue());
+                        //sorts book into local arrays based on their variables
+                        if (book.getStatus().equals("available") & !book.getOwner().equals(userName)){
+                            availableBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("available") & book.getOwner().equals(userName)){
+                            myAvailableBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("borrowed") & book.getBorrower().equals(userName)){
+                            borrowedBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("lent") & book.getOwner().equals(userName)){
+                            lentBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("accepted") & book.getOwner().equals(userName)){
+                            acceptedBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("requested")){
+                            requestedBooks.add(book);
+                        }
+                    } catch(Exception e){
+                        Log.d("999", "book not added");
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
-    /**
-     * BottomNavigationView setup
-    * */
-    private void setUpBottomNavigationView() {
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
-    }
+    public void getUserName(){
+        // gets username
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("Users");
+        FirebaseAuth Authentication = FirebaseAuth.getInstance();
+        FirebaseUser user = Authentication.getCurrentUser();
+        Query query = mRef.child(user.getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userName = (String) dataSnapshot.child("username").getValue().toString();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    private void initImageLoader() {
-        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
-        ImageLoader.getInstance().init(universalImageLoader.getConfig());
+            }
+        });
     }
 }
