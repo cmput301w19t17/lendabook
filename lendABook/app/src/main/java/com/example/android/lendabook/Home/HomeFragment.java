@@ -103,33 +103,38 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //goes through each book on firebase
+
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Book book = new Book( ds.child("title").getValue().toString(),
-                            ds.child("isbn").getValue().toString(),
-                            ds.child("author").getValue().toString(),
-                            ds.child("description").getValue().toString(),
-                            ds.child("owner").getValue().toString(),
-                            ds.child("borrower").getValue().toString(),
-                            ds.child("status").getValue().toString(),
-                            (ArrayList<String>) ds.child("requests").getValue());
-                    //sorts book into local arrays based on their variables
-                    if (book.getStatus().equals("available") & !book.getOwner().equals(userName)){
-                        availableBooks.add(book);
-                    }
-                    else if (book.getStatus().equals("available") & book.getOwner().equals(userName)){
-                        myAvailableBooks.add(book);
-                    }
-                    else if (book.getStatus().equals("borrowed") & book.getBorrower().equals(userName)){
-                        borrowedBooks.add(book);
-                    }
-                    else if (book.getStatus().equals("lent") & book.getOwner().equals(userName)){
-                        lentBooks.add(book);
-                    }
-                    else if (book.getStatus().equals("accepted") & book.getOwner().equals(userName)){
-                        acceptedBooks.add(book);
-                    }
-                    else if (book.getStatus().equals("requested")){
-                        requestedBooks.add(book);
+                    try{
+                        Book book = new Book( ds.child("title").getValue().toString(),
+                                ds.child("isbn").getValue().toString(),
+                                ds.child("author").getValue().toString(),
+                                ds.child("description").getValue().toString(),
+                                ds.child("owner").getValue().toString(),
+                                ds.child("borrower").getValue().toString(),
+                                ds.child("status").getValue().toString(),
+                                (ArrayList<String>) ds.child("requests").getValue());
+                        //sorts book into local arrays based on their variables
+                        if (book.getStatus().equals("available") & !book.getOwner().equals(userName)){
+                            availableBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("available") & book.getOwner().equals(userName)){
+                            myAvailableBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("borrowed") & book.getBorrower().equals(userName)){
+                            borrowedBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("lent") & book.getOwner().equals(userName)){
+                            lentBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("accepted") & book.getOwner().equals(userName)){
+                            acceptedBooks.add(book);
+                        }
+                        else if (book.getStatus().equals("requested")){
+                            requestedBooks.add(book);
+                        }
+                    } catch(Exception e){
+                        Log.d("999", "book not added");
                     }
                 }
             }
